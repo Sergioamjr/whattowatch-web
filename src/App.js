@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Movies from "./pages/Movies";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Switch>
         <Route exact render={(props) => <Home {...props} />} path="/" />
         <Route exact render={(props) => <Login {...props} />} path="/login" />
+        <Route exact render={(props) => <Movies {...props} />} path="/movies" />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

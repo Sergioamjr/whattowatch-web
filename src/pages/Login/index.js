@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   const onSuccess = (data) => {
-    Object.entries(data).map(([name, value]) => {
+    Object.entries(data).forEach(([name, value]) => {
       setLocalStorage(name, value);
     });
     client.writeData({ data });
