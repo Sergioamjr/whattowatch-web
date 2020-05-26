@@ -3,15 +3,21 @@ import { useMachine } from "@xstate/react";
 import CreateAccount from "./views/CreateAccount";
 import SingIn from "./views/SignIn";
 import stateMachine from "../stateMachine";
+import { useApolloClient } from "@apollo/react-hooks";
+import { setLocalStorage } from "../../services/localstorage";
 
 const Login = () => {
+  const client = useApolloClient();
   const [current, send] = useMachine(stateMachine);
   const toggleComponetView = () => {
     send("TOGGLE");
   };
 
   const onSuccess = (data) => {
-    console.log(data);
+    Object.entries(data).map(([name, value]) => {
+      setLocalStorage(name, value);
+    });
+    client.writeData({ data });
   };
 
   const onError = (err) => {

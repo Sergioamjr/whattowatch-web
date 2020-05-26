@@ -19,7 +19,7 @@ const CreateAccount = ({ toggleComponetView, onSuccess, onError }) => {
 
   return (
     <Mutation
-      onCompleted={onSuccess}
+      onCompleted={({ saveUserAndSignIn }) => onSuccess(saveUserAndSignIn)}
       variables={state}
       onError={onError}
       mutation={CREATE_NEW_USER}

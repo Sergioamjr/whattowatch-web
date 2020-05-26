@@ -19,7 +19,7 @@ const SingIn = ({ toggleComponetView, onSuccess, onError }) => {
   return (
     <Mutation
       onError={onError}
-      onCompleted={onSuccess}
+      onCompleted={({ login }) => onSuccess(login)}
       mutation={LOGIN}
       variables={state}
     >
