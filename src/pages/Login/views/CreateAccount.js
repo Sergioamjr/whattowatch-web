@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Mutation } from "react-apollo";
-import { CREATE_NEW_USER } from "../fragments";
+import { CREATE_NEW_USER } from "../../../fragments";
 
 const CreateAccount = ({ toggleComponetView, onSuccess, onError }) => {
   const [state, setState] = useState({

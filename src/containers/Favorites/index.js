@@ -1,29 +1,11 @@
 import React from "react";
-import { useQuery } from "react-apollo";
-import { gql } from "apollo-boost";
-import useQueryUser from "../../hooks/useQueryUser";
 import Favorites from "../../pages/Favorites";
+import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
 
-const QUERY_USER_FAVORITES = gql`
-  query GetById($userID: String) {
-    getFavoritesByUserID(userID: $userID) {
-      title
-      _id
-      userID
-    }
-  }
-`;
+const FavoritesContainer = (props) => {
+  const userFavoriteData = useQueryUserFavorites();
 
-const FavoritesContainer = () => {
-  const {
-    data: { _id: userID },
-  } = useQueryUser();
-
-  const { loading, data } = useQuery(QUERY_USER_FAVORITES, {
-    variables: { userID },
-  });
-
-  return <Favorites loading={loading} {...data} />;
+  return <Favorites {...props} {...userFavoriteData} />;
 };
 
 export default FavoritesContainer;

@@ -1,79 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovies } from "../../services/movies";
-import { ADD_MOVIE_TO_FAVORITE } from "./types";
 import { Mutation } from "react-apollo";
+import MovieCard from "../../components/MovieCard";
 import useQueryUser from "../../hooks/useQueryUser";
+import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
+import { ADD_MOVIE_TO_FAVORITE } from "../../fragments";
 
 const Movies = () => {
-  const {
-    data: { _id: userID },
-  } = useQueryUser();
-
+  const { _id: userID } = useQueryUser();
   const [moviesList, setMovieList] = useState([]);
+  const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const movies = await fetchMovies();
-        setMovieList(movies);
-      } catch (err) {
-        fetchMovies([]);
-      }
-    })();
+    getAllMovies();
   }, []);
 
+  const getAllMovies = async () => {
+    try {
+      const movies = await fetchMovies();
+      setMovieList(movies);
+    } catch (err) {
+      fetchMovies([]);
+    }
+  };
+
+  const onErrorHandler = (error) => {
+    console.log("error", error);
+  };
+
   return (
-    <Mutation
-      onError={(err) => console.log("err", err)}
-      onCompleted={(done) => console.log("d", done)}
-      mutation={ADD_MOVIE_TO_FAVORITE}
-    >
-      {(fn, { loading }) => {
-        return (
-          <div>
-            Movies
-            {moviesList.map(
-              ({
-                title,
-                id: movieID,
-                release_date: release,
-                backdrop_path: backdropPath,
-                poster_path: posterPath,
-                genres,
-                popularity,
-                overview,
-              }) => {
-                return (
-                  <div key={movieID}>
-                    title: {title}
-                    <button
-                      disabled={loading}
-                      onClick={() => {
-                        fn({
-                          variables: {
-                            userID,
-                            movieID,
-                            title,
-                            release,
-                            backdropPath,
-                            posterPath,
-                            genres,
-                            popularity,
-                            overview,
-                          },
-                        });
-                      }}
-                    >
-                      Adicionar
-                    </button>
-                  </div>
-                );
-              }
-            )}
-          </div>
+    <div>
+      Movies
+      {moviesList.map((movieProps, index) => {
+        const isInFavorites = getFavoritesByUserID.some(
+          ({ movieID }) => movieID === movieProps.id
         );
-      }}
-    </Mutation>
+        return (
+          <Mutation
+            key={index}
+            onError={onErrorHandler}
+            onCompleted={refetch}
+            mutation={ADD_MOVIE_TO_FAVORITE}
+          >
+            {(callback, { loading }) => {
+              return (
+                <MovieCard
+                  isInFavorites={isInFavorites}
+                  userID={userID}
+                  callback={callback}
+                  loading={loading}
+                  {...movieProps}
+                />
+              );
+            }}
+          </Mutation>
+        );
+      })}
+    </div>
   );
 };
 
