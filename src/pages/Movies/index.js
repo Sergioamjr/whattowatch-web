@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import { fetchMovies } from "../../services/movies";
 import { ADD_MOVIE_TO_FAVORITE } from "./types";
 import { Mutation } from "react-apollo";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import useQueryUser from "../../hooks/useQueryUser";
 
 const Movies = () => {
   const {
     data: { _id: userID },
-  } = useQuery(gql`
-    query IsUserLoggedIn {
-      _id @client
-    }
-  `);
+  } = useQueryUser();
 
   const [moviesList, setMovieList] = useState([]);
 
