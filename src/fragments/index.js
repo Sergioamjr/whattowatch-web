@@ -73,3 +73,11 @@ export const QUERY_USER_FAVORITES = gql`
     }
   }
 `;
+
+export const DELETE_FAVORITE = gql`
+  mutation removeFromFavorite($_id: ID) {
+    removeFavoriteById(_id: $_id) {
+      title
+    }
+  }
+`;

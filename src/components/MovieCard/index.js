@@ -14,27 +14,38 @@ const MovieCard = ({
   callback,
   userID,
   isInFavorites,
+  favorite,
 }) => {
+  const addToFavorite = () => {
+    callback({
+      variables: {
+        userID,
+        movieID,
+        title,
+        release,
+        backdropPath,
+        posterPath,
+        genres,
+        popularity,
+        overview,
+      },
+    });
+  };
+
+  const removeFromFavorite = () => {
+    callback({
+      variables: {
+        _id: favorite._id,
+      },
+    });
+  };
+
   return (
     <div key={movieID}>
       title: {title}
       <button
         disabled={loading}
-        onClick={() => {
-          callback({
-            variables: {
-              userID,
-              movieID,
-              title,
-              release,
-              backdropPath,
-              posterPath,
-              genres,
-              popularity,
-              overview,
-            },
-          });
-        }}
+        onClick={isInFavorites ? removeFromFavorite : addToFavorite}
       >
         {isInFavorites ? "Remover" : "Adicionar"}
       </button>
@@ -43,6 +54,9 @@ const MovieCard = ({
 };
 
 MovieCard.propTypes = {
+  favorite: PropTypes.shape({
+    _id: PropTypes.string,
+  }),
   isInFavorites: PropTypes.bool,
   backdrop_path: PropTypes.string,
   callback: PropTypes.func,

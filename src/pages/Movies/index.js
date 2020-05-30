@@ -4,7 +4,7 @@ import { Mutation } from "react-apollo";
 import MovieCard from "../../components/MovieCard";
 import useQueryUser from "../../hooks/useQueryUser";
 import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
-import { ADD_MOVIE_TO_FAVORITE } from "../../fragments";
+import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "../../fragments";
 
 const Movies = () => {
   const { _id: userID } = useQueryUser();
@@ -32,23 +32,25 @@ const Movies = () => {
     <div>
       Movies
       {moviesList.map((movieProps, index) => {
-        const isInFavorites = getFavoritesByUserID.some(
+        const isInFavorites = getFavoritesByUserID.find(
           ({ movieID }) => movieID === movieProps.id
         );
+
         return (
           <Mutation
             key={index}
             onError={onErrorHandler}
             onCompleted={refetch}
-            mutation={ADD_MOVIE_TO_FAVORITE}
+            mutation={isInFavorites ? DELETE_FAVORITE : ADD_MOVIE_TO_FAVORITE}
           >
             {(callback, { loading }) => {
               return (
                 <MovieCard
-                  isInFavorites={isInFavorites}
+                  isInFavorites={!!isInFavorites}
                   userID={userID}
                   callback={callback}
                   loading={loading}
+                  favorite={isInFavorites}
                   {...movieProps}
                 />
               );
