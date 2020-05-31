@@ -1,10 +1,10 @@
 import React from "react";
-import MovieCard from "../../components/MovieCard";
-import { Mutation } from "react-apollo";
-import { DELETE_FAVORITE } from "../../fragments";
-import useQueryUser from "../../hooks/useQueryUser";
 import { Link } from "react-router-dom";
-import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
+import MovieCard from "components/MovieCard";
+import { Mutation } from "react-apollo";
+import { DELETE_FAVORITE } from "fragments";
+import useQueryUser from "hooks/useQueryUser";
+import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 
 const Favorites: React.FC = () => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();

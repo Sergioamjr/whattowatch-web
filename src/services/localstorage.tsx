@@ -1,4 +1,4 @@
-import { FixMeLater } from "./../types/common";
+import { FixMeLater } from "types/common";
 
 export const setLocalStorage = (name: string, value: FixMeLater): void => {
   localStorage.setItem(name, value);

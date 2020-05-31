@@ -1,5 +1,5 @@
 import React from "react";
-import { FixMeLater } from "./../../types/common";
+import { FixMeLater } from "types/common";
 
 interface MovieCardTypes {
   _id: string;

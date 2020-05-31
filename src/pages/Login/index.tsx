@@ -1,11 +1,11 @@
 import React from "react";
+import { useApolloClient } from "@apollo/react-hooks";
 import { useMachine } from "@xstate/react";
 import CreateAccount from "./views/CreateAccount";
 import SingIn from "./views/SignIn";
 import stateMachine from "../stateMachine";
-import { useApolloClient } from "@apollo/react-hooks";
-import { setLocalStorage } from "../../services/localstorage";
-import { FixMeLater } from "./../../types/common";
+import { setLocalStorage } from "services/localstorage";
+import { FixMeLater } from "types/common";
 
 export interface CreateAccountTypes {
   toggleComponetView: () => void;

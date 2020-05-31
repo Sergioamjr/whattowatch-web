@@ -59,6 +59,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,md}": "eslint && pretty-quick --staged"
+    "*.{ts,tsx}": "eslint --cache",
+    "*.{js,jsx,ts,tsx,md,html,css}": "pretty-quick --staged"
   }
 }

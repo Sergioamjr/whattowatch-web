@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FixMeLater } from "./../types/common";
+import { FixMeLater } from "types/common";
 
 const key = "a1dc06d0f8d65b34ac156d07fe333060";
 const baseURL = "https://api.themoviedb.org";

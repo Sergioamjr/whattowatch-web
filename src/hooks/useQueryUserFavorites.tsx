@@ -1,7 +1,7 @@
 import { useQuery } from "react-apollo";
 import useQueryUser from "./useQueryUser";
-import { QUERY_USER_FAVORITES, QUERY_USER_FAVORITES_TYPES } from "../fragments";
-import { FixMeLater } from "./../types/common";
+import { QUERY_USER_FAVORITES, QUERY_USER_FAVORITES_TYPES } from "fragments";
+import { FixMeLater } from "types/common";
 
 export default (): FixMeLater => {
   const { _id: userID } = useQueryUser();

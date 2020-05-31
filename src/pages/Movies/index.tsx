@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { fetchMovies } from "../../services/movies";
-import { Mutation } from "react-apollo";
-import MovieCard from "../../components/MovieCard";
-import useQueryUser from "../../hooks/useQueryUser";
-import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
-import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "../../fragments";
 import { Link } from "react-router-dom";
+import { fetchMovies } from "services/movies";
+import { Mutation } from "react-apollo";
+import MovieCard from "components/MovieCard";
+import useQueryUser from "hooks/useQueryUser";
+import useQueryUserFavorites from "hooks/useQueryUserFavorites";
+import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 
 const Movies: React.FC = () => {
   const { _id: userID } = useQueryUser();

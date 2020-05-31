@@ -28,7 +28,11 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
-    "react/prop-types": [2, { "ignore": ["children"] }]
+    "react/prop-types": [2, { "ignore": ["children"] }],
+    "no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ]
   },
   "settings": {
     "react": {

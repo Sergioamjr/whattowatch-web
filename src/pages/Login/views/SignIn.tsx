@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Mutation } from "react-apollo";
-import { LOGIN } from "../../../fragments";
+import { LOGIN } from "fragments";
 import { CreateAccountTypes } from "./../";
 
 const SingIn: React.FC<CreateAccountTypes> = ({

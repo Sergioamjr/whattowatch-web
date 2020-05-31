@@ -8,6 +8,7 @@
 ### Objetivos técnicos:
 
 - [x] Migrar para TS.
+- [ ] Criar alias.
 - [ ] Controlar sessões de usuários.
 - [ ] Criar layout.
 - [ ] Criar componentes de cards, botões, header.
