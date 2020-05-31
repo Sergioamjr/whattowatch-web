@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Favorites from "./pages/Favorites";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Router>
       <Switch>

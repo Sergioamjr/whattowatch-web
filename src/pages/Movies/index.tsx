@@ -7,7 +7,7 @@ import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "../../fragments";
 import { Link } from "react-router-dom";
 
-const Movies = () => {
+const Movies: React.FC = () => {
   const { _id: userID } = useQueryUser();
   const [moviesList, setMovieList] = useState([]);
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
@@ -21,7 +21,7 @@ const Movies = () => {
       const movies = await fetchMovies();
       setMovieList(movies);
     } catch (err) {
-      fetchMovies([]);
+      setMovieList([]);
     }
   };
 

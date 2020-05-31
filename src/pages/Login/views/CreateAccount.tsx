@@ -1,12 +1,18 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Mutation } from "react-apollo";
-import { LOGIN } from "../../../fragments";
+import { CREATE_NEW_USER } from "../../../fragments";
+import { CreateAccountTypes } from "./../";
 
-const SingIn = ({ toggleComponetView, onSuccess, onError }) => {
+const CreateAccount: React.FC<CreateAccountTypes> = ({
+  toggleComponetView,
+  onSuccess,
+  onError,
+}) => {
   const [state, setState] = useState({
-    email: "cersei@gmail.com",
+    name: "Batman",
     password: "gatinhalinda",
+    email: "cersei@gmail.com",
   });
 
   const onChangeHandle = ({ target: { value, name } }) => {
@@ -18,15 +24,21 @@ const SingIn = ({ toggleComponetView, onSuccess, onError }) => {
 
   return (
     <Mutation
-      onError={onError}
-      onCompleted={({ login }) => onSuccess(login)}
-      mutation={LOGIN}
+      onCompleted={({ saveUserAndSignIn }) => onSuccess(saveUserAndSignIn)}
       variables={state}
+      onError={onError}
+      mutation={CREATE_NEW_USER}
     >
-      {(login, { loading }) => {
+      {(createUser, { loading }) => {
         return (
           <div>
-            <p>SingIn</p>
+            <p>Criar conta</p>
+            <input
+              onChange={onChangeHandle}
+              type="text"
+              name="name"
+              value={state.name}
+            />
             <input
               onChange={onChangeHandle}
               type="text"
@@ -39,11 +51,16 @@ const SingIn = ({ toggleComponetView, onSuccess, onError }) => {
               name="password"
               value={state.password}
             />
-            <button disabled={loading} onClick={login}>
-              Login
+            <button
+              disabled={
+                loading || !state.email || !state.name || !state.password
+              }
+              onClick={createUser}
+            >
+              Criar conta
             </button>
             <button disabled={loading} onClick={toggleComponetView}>
-              Criar Conta
+              Login
             </button>
           </div>
         );
@@ -52,10 +69,10 @@ const SingIn = ({ toggleComponetView, onSuccess, onError }) => {
   );
 };
 
-SingIn.propTypes = {
+CreateAccount.propTypes = {
   onError: PropTypes.func.isRequired,
   onSuccess: PropTypes.func.isRequired,
   toggleComponetView: PropTypes.func.isRequired,
 };
 
-export default SingIn;
+export default CreateAccount;

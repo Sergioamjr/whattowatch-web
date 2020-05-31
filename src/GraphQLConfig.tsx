@@ -18,7 +18,7 @@ cache.writeData({
   },
 });
 
-const GraphQLConnect = ({ children }) => {
+const GraphQLConnect: React.FC = ({ children }) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 

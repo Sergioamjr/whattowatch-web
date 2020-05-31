@@ -7,7 +7,7 @@
 
 ### Objetivos técnicos:
 
-- [ ] Migrar para TS.
+- [x] Migrar para TS.
 - [ ] Controlar sessões de usuários.
 - [ ] Criar layout.
 - [ ] Criar componentes de cards, botões, header.

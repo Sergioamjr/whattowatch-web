@@ -53,6 +53,16 @@ export const CREATE_NEW_USER = gql`
   }
 `;
 
+export interface QUERY_USER_FAVORITES_DATA {
+  title: string;
+  _id: string;
+  movieID: number;
+}
+
+export interface QUERY_USER_FAVORITES_TYPES {
+  getFavoritesByUserID: QUERY_USER_FAVORITES_DATA[];
+}
+
 export const QUERY_USER_FAVORITES = gql`
   query GetById($userID: String) {
     getFavoritesByUserID(userID: $userID) {

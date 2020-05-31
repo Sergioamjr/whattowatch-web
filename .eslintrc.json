@@ -5,8 +5,12 @@
     "node": true,
     "jest": true
   },
-  "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -18,7 +22,7 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],

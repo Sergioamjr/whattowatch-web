@@ -5,8 +5,15 @@ import SingIn from "./views/SignIn";
 import stateMachine from "../stateMachine";
 import { useApolloClient } from "@apollo/react-hooks";
 import { setLocalStorage } from "../../services/localstorage";
+import { FixMeLater } from "./../../types/common";
 
-const Login = () => {
+export interface CreateAccountTypes {
+  toggleComponetView: () => void;
+  onSuccess: (data: FixMeLater) => void;
+  onError: (err: FixMeLater) => void;
+}
+
+const Login: React.FC = () => {
   const client = useApolloClient();
   const [current, send] = useMachine(stateMachine);
   const toggleComponetView = () => {

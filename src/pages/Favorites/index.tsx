@@ -6,7 +6,7 @@ import useQueryUser from "../../hooks/useQueryUser";
 import { Link } from "react-router-dom";
 import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
 
-const Favorites = () => {
+const Favorites: React.FC = () => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
   const { _id: userID } = useQueryUser();
   return (
@@ -27,7 +27,9 @@ const Favorites = () => {
             getFavoritesByUserID.map((movieProps, index) => (
               <Mutation
                 key={index}
-                onError={() => {}}
+                onError={(err) => {
+                  console.log(err);
+                }}
                 onCompleted={refetch}
                 mutation={DELETE_FAVORITE}
               >
