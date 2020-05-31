@@ -6,11 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import GraphQLConnect from "./GraphQLConfig";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GraphQLConnect>
-      <App />
-    </GraphQLConnect>
-  </React.StrictMode>,
+  <GraphQLConnect>
+    <App />
+  </GraphQLConnect>,
   document.getElementById("root")
 );
 

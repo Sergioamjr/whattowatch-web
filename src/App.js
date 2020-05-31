@@ -8,7 +8,7 @@ import {
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
-import FavoritesContainer from "./containers/Favorites";
+import Favorites from "./pages/Favorites";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
         <Route exact render={(props) => <Login {...props} />} path="/login" />
         <Route
           exact
-          render={(props) => <FavoritesContainer {...props} />}
+          render={(props) => <Favorites {...props} />}
           path="/favorites"
         />
         <Route exact render={(props) => <Movies {...props} />} path="/movies" />

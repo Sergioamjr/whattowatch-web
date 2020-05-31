@@ -5,6 +5,7 @@ import MovieCard from "../../components/MovieCard";
 import useQueryUser from "../../hooks/useQueryUser";
 import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "../../fragments";
+import { Link } from "react-router-dom";
 
 const Movies = () => {
   const { _id: userID } = useQueryUser();
@@ -30,6 +31,12 @@ const Movies = () => {
 
   return (
     <div>
+      <header>
+        <nav>
+          <Link to="/movies">Filmes</Link>
+          <Link to="/favorites">Favoritos</Link>
+        </nav>
+      </header>
       Movies
       {moviesList.map((movieProps, index) => {
         const isInFavorites = getFavoritesByUserID.find(
@@ -46,11 +53,11 @@ const Movies = () => {
             {(callback, { loading }) => {
               return (
                 <MovieCard
+                  _id={isInFavorites?._id}
                   isInFavorites={!!isInFavorites}
                   userID={userID}
                   callback={callback}
                   loading={loading}
-                  favorite={isInFavorites}
                   {...movieProps}
                 />
               );

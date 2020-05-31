@@ -1,9 +1,22 @@
-import PropTypes from "prop-types";
 import React from "react";
+import MovieCard from "../../components/MovieCard";
+import { Mutation } from "react-apollo";
+import { DELETE_FAVORITE } from "../../fragments";
+import useQueryUser from "../../hooks/useQueryUser";
+import { Link } from "react-router-dom";
+import useQueryUserFavorites from "../../hooks/useQueryUserFavorites";
 
-const Favorites = ({ loading, getFavoritesByUserID }) => {
+const Favorites = () => {
+  const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
+  const { _id: userID } = useQueryUser();
   return (
     <div>
+      <header>
+        <nav>
+          <Link to="/movies">Filmes</Link>
+          <Link to="/favorites">Favoritos</Link>
+        </nav>
+      </header>
       {loading ? (
         <p>Carregando...</p>
       ) : (
@@ -11,27 +24,32 @@ const Favorites = ({ loading, getFavoritesByUserID }) => {
           {!getFavoritesByUserID.length ? (
             <p>Lista vazia</p>
           ) : (
-            getFavoritesByUserID.map(({ title, _id }) => (
-              <div key={_id}>
-                <p>Title: {title}</p>
-                <button>Remover</button>
-              </div>
+            getFavoritesByUserID.map((movieProps, index) => (
+              <Mutation
+                key={index}
+                onError={() => {}}
+                onCompleted={refetch}
+                mutation={DELETE_FAVORITE}
+              >
+                {(callback, { loading }) => {
+                  return (
+                    <MovieCard
+                      isInFavorites
+                      userID={userID}
+                      callback={callback}
+                      loading={loading}
+                      favorite={movieProps}
+                      {...movieProps}
+                    />
+                  );
+                }}
+              </Mutation>
             ))
           )}
         </div>
       )}
     </div>
   );
-};
-
-Favorites.propTypes = {
-  getFavoritesByUserID: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      _id: PropTypes.string,
-    })
-  ),
-  loading: PropTypes.bool,
 };
 
 export default Favorites;
