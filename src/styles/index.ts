@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box; 
     font-family: 'Noto Sans', sans-serif;
     list-style-type: none;
+    -webkit-font-smoothing: antialiased;
   }
   img {
     width: 100%;
@@ -22,7 +23,11 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  html, body, #app, .template {
+  html, body, #app {
     height: 100%;
+  }
+
+  body {
+    font-size: 18px;
   }
 `;

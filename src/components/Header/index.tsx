@@ -1,15 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import * as S from "./style";
 
 const Header: React.FC = () => {
   return (
     <S.Header>
-      <h1>WhatToWatch</h1>
+      <S.Logo>WhatToWatch</S.Logo>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/movies">Filmes</Link>
-        <Link to="/favorites">Favoritos</Link>
+        <S.MenuLink to="/">Home</S.MenuLink>
+        <S.MenuLink to="/movies">Filmes</S.MenuLink>
+        <S.MenuLink to="/favorites">Favoritos</S.MenuLink>
       </nav>
     </S.Header>
   );
