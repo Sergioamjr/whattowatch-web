@@ -16,7 +16,8 @@
     "jsx": "preserve",
     "downlevelIteration": true,
     "lib": ["es2018", "dom"],
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "src"
   },
   "exclude": ["node_modules"],
   "include": ["src"]

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { fetchMovies } from "services/movies";
 import { Mutation } from "react-apollo";
 import MovieCard from "components/MovieCard";
 import useQueryUser from "hooks/useQueryUser";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
+import Template from "components/Template";
 
 const Movies: React.FC = () => {
   const { _id: userID } = useQueryUser();
@@ -30,13 +30,7 @@ const Movies: React.FC = () => {
   };
 
   return (
-    <div>
-      <header>
-        <nav>
-          <Link to="/movies">Filmes</Link>
-          <Link to="/favorites">Favoritos</Link>
-        </nav>
-      </header>
+    <Template>
       Movies
       {moviesList.map((movieProps, index) => {
         const isInFavorites = getFavoritesByUserID.find(
@@ -65,7 +59,7 @@ const Movies: React.FC = () => {
           </Mutation>
         );
       })}
-    </div>
+    </Template>
   );
 };
 

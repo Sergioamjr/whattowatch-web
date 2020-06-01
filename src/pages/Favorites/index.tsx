@@ -1,22 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import MovieCard from "components/MovieCard";
 import { Mutation } from "react-apollo";
 import { DELETE_FAVORITE } from "fragments";
 import useQueryUser from "hooks/useQueryUser";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
+import Template from "components/Template";
 
 const Favorites: React.FC = () => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
   const { _id: userID } = useQueryUser();
   return (
-    <div>
-      <header>
-        <nav>
-          <Link to="/movies">Filmes</Link>
-          <Link to="/favorites">Favoritos</Link>
-        </nav>
-      </header>
+    <Template>
       {loading ? (
         <p>Carregando...</p>
       ) : (
@@ -50,7 +44,7 @@ const Favorites: React.FC = () => {
           )}
         </div>
       )}
-    </div>
+    </Template>
   );
 };
 
