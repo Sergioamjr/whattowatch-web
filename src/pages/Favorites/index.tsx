@@ -19,39 +19,35 @@ const Favorites: React.FC = () => {
       </PageTitle>
       {loading ? (
         <p>Carregando...</p>
+      ) : !getFavoritesByUserID.length ? (
+        <p>Lista vazia</p>
       ) : (
-        <div>
-          {!getFavoritesByUserID.length ? (
-            <p>Lista vazia</p>
-          ) : (
-            <S.Grid>
-              {getFavoritesByUserID.map((movieProps, index) => (
-                <Mutation
-                  key={index}
-                  onError={(err) => {
-                    console.log(err);
-                  }}
-                  onCompleted={refetch}
-                  mutation={DELETE_FAVORITE}
-                >
-                  {(callback, { loading }) => {
-                    return (
-                      <MovieCard
-                        isInFavorites
-                        userID={userID}
-                        callback={callback}
-                        loading={loading}
-                        favorite={movieProps}
-                        {...movieProps}
-                        poster_path={movieProps.posterPath}
-                      />
-                    );
-                  }}
-                </Mutation>
-              ))}
-            </S.Grid>
-          )}
-        </div>
+        <S.Grid>
+          {getFavoritesByUserID.map((movieProps, index) => (
+            <Mutation
+              key={index}
+              onError={(err) => {
+                console.log(err);
+              }}
+              onCompleted={refetch}
+              mutation={DELETE_FAVORITE}
+            >
+              {(callback, { loading }) => {
+                return (
+                  <MovieCard
+                    isInFavorites
+                    userID={userID}
+                    callback={callback}
+                    loading={loading}
+                    favorite={movieProps}
+                    {...movieProps}
+                    poster_path={movieProps.posterPath}
+                  />
+                );
+              }}
+            </Mutation>
+          ))}
+        </S.Grid>
       )}
     </Template>
   );

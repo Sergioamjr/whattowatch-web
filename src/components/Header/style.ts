@@ -7,7 +7,6 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  margin-bottom: 20px;
 `;
 
 export const MenuLink = styled(Link)`
