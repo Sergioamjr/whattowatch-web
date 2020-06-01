@@ -9,6 +9,7 @@ import Login from "pages/Login";
 import Home from "pages/Home";
 import Movies from "pages/Movies";
 import Favorites from "pages/Favorites";
+import Lists from "pages/Lists";
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
           render={(props) => <Favorites {...props} />}
           path="/favorites"
         />
+        <Route exact render={(props) => <Lists {...props} />} path="/listas" />
         <Route exact render={(props) => <Movies {...props} />} path="/movies" />
         <Redirect from="*" to="/" />
       </Switch>

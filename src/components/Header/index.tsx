@@ -9,6 +9,7 @@ const Header: React.FC = () => {
         <S.MenuLink to="/">Home</S.MenuLink>
         <S.MenuLink to="/movies">Filmes</S.MenuLink>
         <S.MenuLink to="/favorites">Favoritos</S.MenuLink>
+        <S.MenuLink to="/listas">Listas</S.MenuLink>
       </nav>
     </S.Header>
   );
