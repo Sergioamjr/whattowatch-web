@@ -8,6 +8,5 @@ export const Template = styled.div`
 
 export const Relative = styled.div`
   position: relative;
-  overflow: auto;
   height: 100%;
 `;

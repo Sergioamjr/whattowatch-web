@@ -57,6 +57,7 @@ export interface QUERY_USER_FAVORITES_DATA {
   title: string;
   _id: string;
   movieID: number;
+  posterPath: string;
 }
 
 export interface QUERY_USER_FAVORITES_TYPES {
@@ -69,6 +70,7 @@ export const QUERY_USER_FAVORITES = gql`
       title
       _id
       movieID
+      posterPath
     }
   }
 `;

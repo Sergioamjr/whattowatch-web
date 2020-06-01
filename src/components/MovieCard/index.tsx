@@ -47,13 +47,15 @@ const MovieCard: React.FC<MovieCardTypes> = ({
   return (
     <S.Card>
       <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
-      title: {title}
+      <S.Info>2019 / Drama</S.Info>
+      <S.Title>{title}</S.Title>
       <button
         disabled={loading}
         onClick={isInFavorites ? removeFromFavorite : addToFavorite}
       >
         {isInFavorites ? "Remover" : "Adicionar"}
       </button>
+      <S.Rating>7</S.Rating>
     </S.Card>
   );
 };
