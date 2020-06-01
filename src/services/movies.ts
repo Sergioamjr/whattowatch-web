@@ -13,7 +13,7 @@ if (useMock) {
 const key = "a1dc06d0f8d65b34ac156d07fe333060";
 const baseURL = "https://api.themoviedb.org";
 
-const formatResponse = (response) => {
+const formatMoviesResponse = (response) => {
   const {
     data: { results },
   } = response;
@@ -25,5 +25,20 @@ export const fetchMovies = (page = 1): FixMeLater => {
     .get(
       `${baseURL}/3/discover/movie?include_adult=false&api_key=${key}&page=${page}`
     )
-    .then(formatResponse);
+    .then(formatMoviesResponse);
+};
+
+export interface GenresTypes {
+  id: number;
+  name: string;
+}
+
+const formatGenresResponse = (response): GenresTypes[] => {
+  return response.data.genres;
+};
+
+export const fetchGenres = (): Promise<GenresTypes[]> => {
+  return axios
+    .get(`${baseURL}/3/genre/movie/list?api_key=api_key=${key}`)
+    .then(formatGenresResponse);
 };

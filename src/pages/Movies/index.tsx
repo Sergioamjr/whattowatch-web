@@ -8,6 +8,7 @@ import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import * as S from "./style";
 import PageTitle from "components/PageTitle";
+import Genres from "components/Genres";
 
 const Movies: React.FC = () => {
   const { _id: userID } = useQueryUser();
@@ -36,6 +37,7 @@ const Movies: React.FC = () => {
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
+      <Genres />
       <S.Grid>
         {moviesList.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(

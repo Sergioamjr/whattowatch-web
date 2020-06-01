@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FixMeLater } from "types/common";
 import * as S from "./style";
 
@@ -60,4 +60,4 @@ const MovieCard: React.FC<MovieCardTypes> = ({
   );
 };
 
-export default MovieCard;
+export default memo(MovieCard);
