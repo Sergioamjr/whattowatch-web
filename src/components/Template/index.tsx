@@ -8,7 +8,7 @@ const Template: React.FC = ({ children }) => {
     <S.Template>
       <Container>
         <Header />
-        {children}
+        <S.Relative>{children}</S.Relative>
       </Container>
     </S.Template>
   );

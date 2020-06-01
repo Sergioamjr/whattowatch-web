@@ -1,5 +1,8 @@
 import React from "react";
 import { FixMeLater } from "types/common";
+import * as S from "./style";
+
+const BASE_IMG = "https://image.tmdb.org/t/p/w500/";
 
 interface MovieCardTypes {
   _id: string;
@@ -42,7 +45,8 @@ const MovieCard: React.FC<MovieCardTypes> = ({
   };
 
   return (
-    <div key={movieID}>
+    <S.Card>
+      <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
       title: {title}
       <button
         disabled={loading}
@@ -50,7 +54,7 @@ const MovieCard: React.FC<MovieCardTypes> = ({
       >
         {isInFavorites ? "Remover" : "Adicionar"}
       </button>
-    </div>
+    </S.Card>
   );
 };
 

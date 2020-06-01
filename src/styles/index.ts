@@ -4,6 +4,7 @@ export const Container = styled.div`
   max-width: 1200px;
   padding: 0 15px;
   margin: 0 auto;
+  height: 100%;
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -29,5 +30,6 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-size: 18px;
+    overflow: hidden;
   }
 `;
