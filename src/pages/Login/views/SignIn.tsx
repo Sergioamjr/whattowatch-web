@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Mutation } from "react-apollo";
 import { LOGIN } from "fragments";
 import { CreateAccountTypes } from "./../";
+import * as S from "./../style";
 
 const SingIn: React.FC<CreateAccountTypes> = ({
   toggleComponetView,
@@ -31,25 +32,31 @@ const SingIn: React.FC<CreateAccountTypes> = ({
       {(login, { loading }) => {
         return (
           <div>
-            <p>SingIn</p>
-            <input
-              onChange={onChangeHandle}
-              type="text"
-              name="email"
-              value={state.email}
-            />
-            <input
-              onChange={onChangeHandle}
-              type="password"
-              name="password"
-              value={state.password}
-            />
-            <button disabled={loading} onClick={login}>
-              Login
-            </button>
-            <button disabled={loading} onClick={toggleComponetView}>
-              Criar Conta
-            </button>
+            <S.FormTitle>Faça login</S.FormTitle>
+            <S.Form>
+              <S.Input
+                placeholder="Seu e-mail"
+                onChange={onChangeHandle}
+                type="text"
+                name="email"
+                value={state.email}
+              />
+              <S.Input
+                placeholder="Sua senha"
+                onChange={onChangeHandle}
+                type="password"
+                name="password"
+                value={state.password}
+              />
+              <S.ButtonsWrapper>
+                <S.Button disabled={loading} onClick={login}>
+                  Login
+                </S.Button>
+                <S.Button disabled={loading} onClick={toggleComponetView}>
+                  Criar Conta
+                </S.Button>
+              </S.ButtonsWrapper>
+            </S.Form>
           </div>
         );
       }}

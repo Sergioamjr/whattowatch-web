@@ -6,6 +6,7 @@ import SingIn from "./views/SignIn";
 import stateMachine from "../stateMachine";
 import { setLocalStorage } from "services/localstorage";
 import { FixMeLater } from "types/common";
+import * as S from "./style";
 
 export interface CreateAccountTypes {
   toggleComponetView: () => void;
@@ -38,12 +39,12 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
+    <S.Template>
       {current.value === "createAccount" && (
         <CreateAccount {...sharedMethods} />
       )}
       {current.value === "signIn" && <SingIn {...sharedMethods} />}
-    </div>
+    </S.Template>
   );
 };
 

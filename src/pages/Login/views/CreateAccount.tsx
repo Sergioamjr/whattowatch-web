@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Mutation } from "react-apollo";
 import { CREATE_NEW_USER } from "fragments";
 import { CreateAccountTypes } from "./../";
+import * as S from "./../style";
 
 const CreateAccount: React.FC<CreateAccountTypes> = ({
   toggleComponetView,
@@ -32,36 +33,43 @@ const CreateAccount: React.FC<CreateAccountTypes> = ({
       {(createUser, { loading }) => {
         return (
           <div>
-            <p>Criar conta</p>
-            <input
-              onChange={onChangeHandle}
-              type="text"
-              name="name"
-              value={state.name}
-            />
-            <input
-              onChange={onChangeHandle}
-              type="text"
-              name="email"
-              value={state.email}
-            />
-            <input
-              onChange={onChangeHandle}
-              type="password"
-              name="password"
-              value={state.password}
-            />
-            <button
-              disabled={
-                loading || !state.email || !state.name || !state.password
-              }
-              onClick={createUser}
-            >
-              Criar conta
-            </button>
-            <button disabled={loading} onClick={toggleComponetView}>
-              Login
-            </button>
+            <S.FormTitle>Criar conta</S.FormTitle>
+            <S.Form>
+              <S.Input
+                placeholder="Seu nome"
+                onChange={onChangeHandle}
+                type="text"
+                name="name"
+                value={state.name}
+              />
+              <S.Input
+                placeholder="Seu e-mail"
+                onChange={onChangeHandle}
+                type="text"
+                name="email"
+                value={state.email}
+              />
+              <S.Input
+                placeholder="Sua senha"
+                onChange={onChangeHandle}
+                type="password"
+                name="password"
+                value={state.password}
+              />
+              <S.ButtonsWrapper>
+                <S.Button
+                  disabled={
+                    loading || !state.email || !state.name || !state.password
+                  }
+                  onClick={createUser}
+                >
+                  Criar conta
+                </S.Button>
+                <S.Button disabled={loading} onClick={toggleComponetView}>
+                  Fazer login
+                </S.Button>
+              </S.ButtonsWrapper>
+            </S.Form>
           </div>
         );
       }}
