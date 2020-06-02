@@ -8,6 +8,7 @@ import stateMachine from "../stateMachine";
 import { setLocalStorage } from "services/localstorage";
 import { FixMeLater } from "types/common";
 import * as S from "./style";
+import Template from "components/Template";
 
 export interface CreateAccountTypes {
   toggleComponetView: () => void;
@@ -29,7 +30,9 @@ const Login: React.FC<RouteComponentProps> = ({
       setLocalStorage(name, value);
     });
     client.writeData({ data });
-    history.push("/movies");
+    setTimeout(() => {
+      history.push("/movies");
+    }, 1000);
   };
 
   const onError = (err) => {
@@ -43,12 +46,14 @@ const Login: React.FC<RouteComponentProps> = ({
   };
 
   return (
-    <S.Template>
-      {current.value === "createAccount" && (
-        <CreateAccount {...sharedMethods} />
-      )}
-      {current.value === "signIn" && <SingIn {...sharedMethods} />}
-    </S.Template>
+    <Template>
+      <S.Template>
+        {current.value === "createAccount" && (
+          <CreateAccount {...sharedMethods} />
+        )}
+        {current.value === "signIn" && <SingIn {...sharedMethods} />}
+      </S.Template>
+    </Template>
   );
 };
 
