@@ -10,6 +10,7 @@ import Home from "pages/Home";
 import Movies from "pages/Movies";
 import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
+import Authentication from "components/Authentication";
 
 const App: React.FC = () => {
   return (
@@ -19,10 +20,22 @@ const App: React.FC = () => {
         <Route exact render={(props) => <Login {...props} />} path="/login" />
         <Route
           exact
-          render={(props) => <Favorites {...props} />}
+          render={(props) => (
+            <Authentication>
+              <Favorites {...props} />
+            </Authentication>
+          )}
           path="/favorites"
         />
-        <Route exact render={(props) => <Lists {...props} />} path="/listas" />
+        <Route
+          exact
+          render={(props) => (
+            <Authentication>
+              <Lists {...props} />
+            </Authentication>
+          )}
+          path="/listas"
+        />
         <Route exact render={(props) => <Movies {...props} />} path="/movies" />
         <Redirect from="*" to="/" />
       </Switch>

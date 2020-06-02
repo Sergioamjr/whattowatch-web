@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { useApolloClient } from "@apollo/react-hooks";
 import { useMachine } from "@xstate/react";
 import CreateAccount from "./views/CreateAccount";
@@ -14,7 +15,9 @@ export interface CreateAccountTypes {
   onError: (err: FixMeLater) => void;
 }
 
-const Login: React.FC = () => {
+const Login: React.FC<RouteComponentProps> = ({
+  history,
+}: RouteComponentProps) => {
   const client = useApolloClient();
   const [current, send] = useMachine(stateMachine);
   const toggleComponetView = () => {
@@ -26,6 +29,7 @@ const Login: React.FC = () => {
       setLocalStorage(name, value);
     });
     client.writeData({ data });
+    history.push("/movies");
   };
 
   const onError = (err) => {
