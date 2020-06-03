@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { useApolloClient } from "@apollo/react-hooks";
 import * as S from "./style";
@@ -9,15 +9,12 @@ const Header: React.FC<RouteComponentProps> = ({
   history,
 }: RouteComponentProps) => {
   const { token } = useQueryUser();
-  const [isLogged, setIsLogged] = useState<boolean>(() => {
-    return !!token;
-  });
+  const isLogged = !!token;
   const client = useApolloClient();
   const onLoggoutHandler = (event) => {
     event.preventDefault();
     clearLocalStorage();
     client.writeData({ data: {} });
-    setIsLogged(false);
     history.push("/");
   };
 
@@ -25,10 +22,10 @@ const Header: React.FC<RouteComponentProps> = ({
     <S.Header>
       <S.Logo>WhatToWatch</S.Logo>
       <nav>
-        <S.MenuLink to="/movies">Filmes</S.MenuLink>
+        <S.MenuLink to="/filmes">Filmes</S.MenuLink>
         {isLogged ? (
           <>
-            <S.MenuLink to="/favorites">Favoritos</S.MenuLink>
+            <S.MenuLink to="/favoritos">Favoritos</S.MenuLink>
             <S.MenuLink to="/listas">Listas</S.MenuLink>
             <S.MenuLink onClick={onLoggoutHandler} to="/login">
               Sair

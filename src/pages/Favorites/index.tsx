@@ -40,6 +40,7 @@ const Favorites: React.FC = () => {
                     callback={callback}
                     loading={loading}
                     favorite={movieProps}
+                    id={movieProps.movieID}
                     {...movieProps}
                     poster_path={movieProps.posterPath}
                   />

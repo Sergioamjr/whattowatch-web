@@ -11,6 +11,7 @@ import Movies from "pages/Movies";
 import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
 import Authentication from "components/Authentication";
+import SingleMovie from "pages/SingleMovie";
 
 const App: React.FC = () => {
   return (
@@ -25,7 +26,7 @@ const App: React.FC = () => {
               <Favorites {...props} />
             </Authentication>
           )}
-          path="/favorites"
+          path="/favoritos"
         />
         <Route
           exact
@@ -36,7 +37,12 @@ const App: React.FC = () => {
           )}
           path="/listas"
         />
-        <Route exact render={(props) => <Movies {...props} />} path="/movies" />
+        <Route exact render={(props) => <Movies {...props} />} path="/filmes" />
+        <Route
+          exact
+          render={(props) => <SingleMovie {...props} />}
+          path="/filmes/:id"
+        />
         <Redirect from="*" to="/" />
       </Switch>
     </Router>

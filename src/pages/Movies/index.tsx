@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovies } from "services/movies";
+import { RouteComponentProps } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import MovieCard from "components/MovieCard";
 import useQueryUser from "hooks/useQueryUser";
@@ -8,8 +9,10 @@ import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import * as S from "./style";
 import PageTitle from "components/PageTitle";
+import useAppStore, { cachedMovie } from "hooks/useAppStore";
 
-const Movies: React.FC = () => {
+const Movies: React.FC = ({ history }: RouteComponentProps) => {
+  const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [moviesList, setMovieList] = useState([]);
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
@@ -29,6 +32,11 @@ const Movies: React.FC = () => {
 
   const onErrorHandler = (error) => {
     console.log("error", error);
+  };
+
+  const selectMovieAndRedirect = (movie: cachedMovie): void => {
+    setCachedMovie(movie);
+    history.push(`/filmes/${movie.movieID}`);
   };
 
   return (
@@ -56,6 +64,7 @@ const Movies: React.FC = () => {
                     userID={userID}
                     callback={callback}
                     loading={loading}
+                    selectMovieAndRedirect={selectMovieAndRedirect}
                     {...movieProps}
                   />
                 );

@@ -11,7 +11,7 @@ const Authentication: React.FC<RouteComponentProps> = ({
     if (!token) {
       history.push("/login");
     }
-  }, [token]);
+  }, [token, history]);
 
   return <>{children}</>;
 };
