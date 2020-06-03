@@ -8,10 +8,10 @@
 ### Objetivos técnicos:
 
 - [x] Migrar para TS.
-- [ ] Criar alias.
+- [x] Criar alias.
 - [ ] Controlar sessões de usuários.
 - [ ] Criar layout.
-- [ ] Criar componentes de cards, botões, header.
+- [x] Criar componentes de cards, botões, header.
 - [ ] Integrar login com Google.
 - [ ] Criar tela de lista de filmes.
 - [ ] Criar pesquisa de filmes.
@@ -21,6 +21,7 @@
 - [ ] Hospedar API, APP e Web.
 - [ ] Criar landing page.
 - [ ] Adicionar Google Analytics.
+- [ ] Criar store com Context API
 
 ### Projetos relacionados:
 

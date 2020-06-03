@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import GraphQLConnect from "./GraphQLConfig";
 import { GlobalStyle } from "styles";
+import { StoreProvider } from "hooks/useAppStore";
 
 ReactDOM.render(
   <GraphQLConnect>
-    <GlobalStyle />
-    <App />
+    <StoreProvider>
+      <GlobalStyle />
+      <App />
+    </StoreProvider>
   </GraphQLConnect>,
   document.getElementById("root")
 );
