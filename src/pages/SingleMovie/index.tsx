@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import Template from "components/Template";
 import useAppStore from "hooks/useAppStore";
-import { Movie } from "types/common";
+import { Movie, OptionalMovie } from "types/common";
 import { fetchSingleMovie } from "services/movies";
 import * as S from "./style";
 import { BASE_IMG } from "components/MovieCard";
@@ -10,7 +10,7 @@ import { BASE_IMG } from "components/MovieCard";
 const SingleMovie = (props: RouteComponentProps): JSX.Element => {
   const { id } = props.match.params;
   const { setCachedMovie, cachedMovie } = useAppStore();
-  const [movie, setMovie] = useState<Movie>(cachedMovie);
+  const [movie, setMovie] = useState<Movie | OptionalMovie>(cachedMovie);
 
   const getMovieDetails = useCallback(async () => {
     try {

@@ -6,11 +6,8 @@ import { Movie } from "types/common";
 
 export const BASE_IMG = "https://image.tmdb.org/t/p/w500/";
 
-interface Props {
+interface Props extends Movie {
   _id: string;
-  title: string;
-  id: number;
-  poster_path: string;
   loading: boolean;
   callback: FixMeLater;
   userID: string;
@@ -21,8 +18,8 @@ interface Props {
 const MovieCard = ({
   _id,
   title,
-  id: movieID,
-  poster_path: posterPath,
+  movieID,
+  posterPath,
   loading,
   callback,
   userID,
@@ -30,6 +27,7 @@ const MovieCard = ({
   selectMovieAndRedirect,
   ...props
 }: Props) => {
+  console.log(props);
   const addToFavorite = () => {
     callback({
       variables: {

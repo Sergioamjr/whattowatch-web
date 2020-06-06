@@ -6,7 +6,7 @@ import MovieCard from "components/MovieCard";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Movie } from "types/common";
+import { Movie, MoviePageState } from "types/common";
 import { GridWithScroll, Row } from "styles";
 import useAppStore from "hooks/useAppStore";
 import useQueryUser from "hooks/useQueryUser";
@@ -17,7 +17,11 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
-  const [moviesList, setMovieList] = useState([]);
+  const [moviesList, setMovieList] = useState<MoviePageState>({
+    results: [],
+    page: 1,
+    total_pages: 1000,
+  });
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
   console.log(isVisible);
@@ -31,7 +35,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       const movies = await fetchMovies();
       setMovieList(movies);
     } catch (err) {
-      setMovieList([]);
+      setMovieList({ results: [], page: 1, total_pages: 1000 });
     }
   };
 
@@ -50,9 +54,9 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
         Filmes
       </PageTitle>
       <GridWithScroll>
-        {moviesList.map((movieProps, index) => {
+        {moviesList.results.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(
-            ({ movieID }) => movieID === movieProps.id
+            ({ movieID }) => movieID === movieProps.movieID
           );
           return (
             <Mutation
@@ -64,14 +68,16 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
               {(callback, { loading }) => {
                 return (
                   <Row
-                    ref={index === moviesList.length - 1 ? lastRef : null}
+                    ref={
+                      index === moviesList.results.length - 1 ? lastRef : null
+                    }
                     xs={6}
                     sm={4}
                     md={3}
                     xl={2}
                   >
                     <MovieCard
-                      _id={isInFavorites?._id}
+                      _id={isInFavorites?.movieID}
                       isInFavorites={!!isInFavorites}
                       userID={userID}
                       callback={callback}

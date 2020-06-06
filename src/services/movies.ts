@@ -12,11 +12,19 @@ if (useMock) {
   mock(axios, MockAdapter);
 }
 
-const formatMoviesResponse = (response) => {
-  const {
-    data: { results },
-  } = response;
-  return results;
+const formatMoviesResponse = ({ data }) => {
+  return {
+    results: data.results.map(
+      ({ id, poster_path, backdrop_path, ...movie }) => ({
+        ...movie,
+        movieID: id,
+        posterPath: poster_path,
+        backdropPath: backdrop_path,
+      })
+    ),
+    page: data.page,
+    total_pages: data.total_pages,
+  };
 };
 
 export const fetchMovies = (page = 1): FixMeLater => {
