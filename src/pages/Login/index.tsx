@@ -9,6 +9,7 @@ import { setLocalStorage } from "services/localstorage";
 import { FixMeLater } from "types/common";
 import * as S from "./style";
 import Template from "components/Template";
+import useAppStore from "hooks/useAppStore";
 
 export interface CreateAccountTypes {
   toggleComponetView: () => void;
@@ -19,6 +20,7 @@ export interface CreateAccountTypes {
 const Login: React.FC<RouteComponentProps> = ({
   history,
 }: RouteComponentProps) => {
+  const { setIsLogged } = useAppStore();
   const client = useApolloClient();
   const [current, send] = useMachine(stateMachine);
   const toggleComponetView = () => {
@@ -30,9 +32,8 @@ const Login: React.FC<RouteComponentProps> = ({
       setLocalStorage(name, value);
     });
     client.writeData({ data });
-    setTimeout(() => {
-      history.push("/movies");
-    }, 1000);
+    setIsLogged(true);
+    history.push("/movies");
   };
 
   const onError = (err) => {

@@ -3,18 +3,16 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { useApolloClient } from "@apollo/react-hooks";
 import * as S from "./style";
 import { clearLocalStorage } from "services/localstorage";
-import useQueryUser from "hooks/useQueryUser";
+import useAppStore from "hooks/useAppStore";
 
-const Header: React.FC<RouteComponentProps> = ({
-  history,
-}: RouteComponentProps) => {
-  const { token } = useQueryUser();
-  const isLogged = !!token;
+const Header = ({ history }: RouteComponentProps) => {
+  const { isLogged, setIsLogged } = useAppStore();
   const client = useApolloClient();
   const onLoggoutHandler = (event) => {
     event.preventDefault();
     clearLocalStorage();
     client.writeData({ data: {} });
+    setIsLogged(false);
     history.push("/");
   };
 
