@@ -27,7 +27,6 @@ const MovieCard = ({
   selectMovieAndRedirect,
   ...props
 }: Props) => {
-  console.log(props);
   const addToFavorite = () => {
     callback({
       variables: {

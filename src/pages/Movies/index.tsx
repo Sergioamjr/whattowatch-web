@@ -12,11 +12,13 @@ import useAppStore from "hooks/useAppStore";
 import useQueryUser from "hooks/useQueryUser";
 import useIsVisible from "hooks/useIsVisible";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
+import * as S from "./style";
 
 const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [moviesList, setMovieList] = useState<MoviePageState>({
     results: [],
     page: 1,
@@ -24,17 +26,32 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   });
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
-  console.log(isVisible);
 
   useEffect(() => {
-    getAllMovies();
-  }, []);
+    console.log("change page", moviesList.page);
+    getAllMovies(moviesList.page);
+  }, [moviesList.page]);
 
-  const getAllMovies = async () => {
+  useEffect(() => {
+    if (isVisible) {
+      setMovieList((prev) => ({
+        ...prev,
+        page: prev.page + 1,
+      }));
+    }
+  }, [isVisible]);
+
+  const getAllMovies = async (page: number) => {
     try {
-      const movies = await fetchMovies();
-      setMovieList(movies);
+      setIsLoading(true);
+      const movies = await fetchMovies(page);
+      setMovieList((prev) => ({
+        ...movies,
+        results: prev.results.concat(movies.results),
+      }));
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
       setMovieList({ results: [], page: 1, total_pages: 1000 });
     }
   };
@@ -91,6 +108,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
             </Mutation>
           );
         })}
+        {isLoading && <S.Loading>CARREGANDO...</S.Loading>}
       </GridWithScroll>
     </Template>
   );

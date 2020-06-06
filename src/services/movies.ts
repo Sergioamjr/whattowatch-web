@@ -27,7 +27,7 @@ const formatMoviesResponse = ({ data }) => {
   };
 };
 
-export const fetchMovies = (page = 1): FixMeLater => {
+export const fetchMovies = (page: number): FixMeLater => {
   return axios
     .get(
       `${baseURL}/3/discover/movie?include_adult=false&api_key=${key}&page=${page}`

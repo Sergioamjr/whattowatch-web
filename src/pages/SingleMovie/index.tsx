@@ -28,7 +28,6 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
     return () => setCachedMovie({});
   }, [movie.movieID, setCachedMovie, getMovieDetails]);
 
-  console.log(movie);
   return (
     <Template>
       <S.Wrapper>
