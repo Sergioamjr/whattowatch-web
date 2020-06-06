@@ -1,9 +1,10 @@
 import React, { memo } from "react";
 import { FixMeLater } from "types/common";
 import * as S from "./style";
-import { cachedMovie } from "hooks/useAppStore";
+import { Link } from "react-router-dom";
+import { Movie } from "types/common";
 
-const BASE_IMG = "https://image.tmdb.org/t/p/w500/";
+export const BASE_IMG = "https://image.tmdb.org/t/p/w500/";
 
 interface MovieCardTypes {
   _id: string;
@@ -14,7 +15,7 @@ interface MovieCardTypes {
   callback: FixMeLater;
   userID: string;
   isInFavorites: boolean;
-  selectMovieAndRedirect: (movie: cachedMovie) => void;
+  selectMovieAndRedirect: (movie: Movie) => void;
 }
 
 const MovieCard: React.FC<MovieCardTypes> = ({
@@ -49,15 +50,24 @@ const MovieCard: React.FC<MovieCardTypes> = ({
   };
 
   return (
-    <S.Card
-      to={`/filmes/${movieID}`}
-      onClick={() =>
-        selectMovieAndRedirect({ title, movieID, posterPath, ...props })
-      }
-    >
-      <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
+    <S.Card>
+      <Link
+        to={`/filmes/${movieID}`}
+        onClick={() =>
+          selectMovieAndRedirect({ title, movieID, posterPath, ...props })
+        }
+      >
+        <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
+      </Link>
       <S.Info>2019 / Drama</S.Info>
-      <S.Title>{title}</S.Title>
+      <S.CustomLink
+        to={`/filmes/${movieID}`}
+        onClick={() =>
+          selectMovieAndRedirect({ title, movieID, posterPath, ...props })
+        }
+      >
+        <S.Title>{title}</S.Title>
+      </S.CustomLink>
       {false && (
         <button
           disabled={loading}

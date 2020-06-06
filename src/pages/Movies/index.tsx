@@ -9,7 +9,8 @@ import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import * as S from "./style";
 import PageTitle from "components/PageTitle";
-import useAppStore, { cachedMovie } from "hooks/useAppStore";
+import useAppStore from "hooks/useAppStore";
+import { Movie } from "types/common";
 
 const Movies: React.FC = ({ history }: RouteComponentProps) => {
   const { setCachedMovie } = useAppStore();
@@ -34,7 +35,7 @@ const Movies: React.FC = ({ history }: RouteComponentProps) => {
     console.log("error", error);
   };
 
-  const selectMovieAndRedirect = (movie: cachedMovie): void => {
+  const selectMovieAndRedirect = (movie: Movie): void => {
     setCachedMovie(movie);
     history.push(`/filmes/${movie.movieID}`);
   };

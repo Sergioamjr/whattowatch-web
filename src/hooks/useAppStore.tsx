@@ -1,28 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState } from "react";
 import useQueryUser from "./useQueryUser";
-
-export interface cachedMovie {
-  title?: string;
-  movieID?: number;
-  adult?: boolean;
-  backdrop_path?: string;
-  genre_ids?: number[];
-  original_language?: string;
-  posterPath?: string;
-  original_title?: string;
-  overview?: string;
-  popularity?: number;
-  release_date?: "2020-01-15";
-  video?: boolean;
-  vote_average?: number;
-  vote_count?: number;
-}
+import { Movie } from "types/common";
 
 interface AppStoreTypes {
   isLogged: boolean;
-  cachedMovie: cachedMovie;
-  setCachedMovie: (arg0: cachedMovie) => void;
+  cachedMovie: Movie;
+  setCachedMovie: (arg0: Movie) => void;
   setIsLogged: (arg0: boolean) => void;
 }
 
@@ -37,7 +21,7 @@ export const AppStore = createContext<AppStoreTypes>(defaultAppStore);
 
 export const StoreProvider: React.FC = ({ children }) => {
   const { token } = useQueryUser();
-  const [cachedMovie, setCachedMovie] = useState<cachedMovie>(
+  const [cachedMovie, setCachedMovie] = useState<Movie>(
     defaultAppStore.cachedMovie
   );
   const [isLogged, setIsLogged] = useState(!!token);

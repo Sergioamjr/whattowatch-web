@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Card = styled(Link)`
+export const CustomLink = styled(Link)`
+  text-decoration: none;
+`;
+
+export const Card = styled.div`
   width: 200px;
   margin-bottom: 20px;
   position: relative;

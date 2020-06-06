@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchGenres, GenresTypes } from "services/movies";
+import { fetchGenres } from "services/movies";
 import * as S from "./style";
+import { Genres } from "types/common";
 
 const Genres: React.FC = () => {
-  const [genreList, setGenreList] = useState<GenresTypes[]>([]);
+  const [genreList, setGenreList] = useState<Genres[]>([]);
   useEffect(() => {
     getGenres();
   }, []);
