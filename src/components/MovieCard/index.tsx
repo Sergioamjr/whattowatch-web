@@ -76,7 +76,6 @@ const MovieCard = ({
           {isInFavorites ? "Remover" : "Adicionar"}
         </button>
       )}
-      <S.Rating>7</S.Rating>
     </S.Card>
   );
 };

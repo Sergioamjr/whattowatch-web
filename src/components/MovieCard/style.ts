@@ -6,7 +6,7 @@ export const CustomLink = styled(Link)`
 `;
 
 export const Card = styled.div`
-  width: 200px;
+  width: 100%;
   margin-bottom: 20px;
   position: relative;
 `;
@@ -26,7 +26,6 @@ export const Img = styled.img`
   object-fit: unset;
   border-radius: 5px;
   margin-bottom: 5px;
-  height: 300px;
 `;
 
 export const Info = styled.p`

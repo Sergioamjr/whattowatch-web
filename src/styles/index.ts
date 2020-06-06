@@ -1,5 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 
+export * from "./theme";
+export * from "./grid";
+
 export const Container = styled.div`
   max-width: 1200px;
   padding: 0 15px;

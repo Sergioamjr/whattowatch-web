@@ -7,10 +7,10 @@ import useQueryUser from "hooks/useQueryUser";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
-import * as S from "./style";
 import PageTitle from "components/PageTitle";
 import useAppStore from "hooks/useAppStore";
 import { Movie } from "types/common";
+import { Grid, Row } from "styles";
 
 const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const { setCachedMovie } = useAppStore();
@@ -45,7 +45,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
-      <S.Grid>
+      <Grid>
         {moviesList.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(
             ({ movieID }) => movieID === movieProps.id
@@ -59,21 +59,23 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
             >
               {(callback, { loading }) => {
                 return (
-                  <MovieCard
-                    _id={isInFavorites?._id}
-                    isInFavorites={!!isInFavorites}
-                    userID={userID}
-                    callback={callback}
-                    loading={loading}
-                    selectMovieAndRedirect={selectMovieAndRedirect}
-                    {...movieProps}
-                  />
+                  <Row xs={6} sm={4} md={3} xl={2}>
+                    <MovieCard
+                      _id={isInFavorites?._id}
+                      isInFavorites={!!isInFavorites}
+                      userID={userID}
+                      callback={callback}
+                      loading={loading}
+                      selectMovieAndRedirect={selectMovieAndRedirect}
+                      {...movieProps}
+                    />
+                  </Row>
                 );
               }}
             </Mutation>
           );
         })}
-      </S.Grid>
+      </Grid>
     </Template>
   );
 };

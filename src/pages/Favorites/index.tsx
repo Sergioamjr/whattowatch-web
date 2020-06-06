@@ -5,8 +5,8 @@ import { DELETE_FAVORITE } from "fragments";
 import useQueryUser from "hooks/useQueryUser";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import Template from "components/Template";
-import * as S from "./style";
 import PageTitle from "components/PageTitle";
+import { Grid, Row } from "styles";
 
 const Favorites = (): JSX.Element => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
@@ -22,7 +22,7 @@ const Favorites = (): JSX.Element => {
       ) : !getFavoritesByUserID.length ? (
         <p>Lista vazia</p>
       ) : (
-        <S.Grid>
+        <Grid>
           {getFavoritesByUserID.map((movieProps, index) => (
             <Mutation
               key={index}
@@ -34,21 +34,23 @@ const Favorites = (): JSX.Element => {
             >
               {(callback, { loading }) => {
                 return (
-                  <MovieCard
-                    isInFavorites
-                    userID={userID}
-                    callback={callback}
-                    loading={loading}
-                    favorite={movieProps}
-                    id={movieProps.movieID}
-                    {...movieProps}
-                    poster_path={movieProps.posterPath}
-                  />
+                  <Row xs={6} sm={4} md={3} xl={2}>
+                    <MovieCard
+                      isInFavorites
+                      userID={userID}
+                      callback={callback}
+                      loading={loading}
+                      favorite={movieProps}
+                      id={movieProps.movieID}
+                      {...movieProps}
+                      poster_path={movieProps.posterPath}
+                    />
+                  </Row>
                 );
               }}
             </Mutation>
           ))}
-        </S.Grid>
+        </Grid>
       )}
     </Template>
   );
