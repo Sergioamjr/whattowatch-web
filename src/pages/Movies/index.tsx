@@ -19,7 +19,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [moviesList, setMovieList] = useState<MoviePageState>({
+  const [movies, setMovies] = useState<MoviePageState>({
     results: [],
     page: 1,
     total_pages: 1000,
@@ -28,13 +28,12 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const isVisible = useIsVisible(lastRef.current);
 
   useEffect(() => {
-    console.log("change page", moviesList.page);
-    getAllMovies(moviesList.page);
-  }, [moviesList.page]);
+    getAllMovies(movies.page);
+  }, [movies.page]);
 
   useEffect(() => {
     if (isVisible) {
-      setMovieList((prev) => ({
+      setMovies((prev) => ({
         ...prev,
         page: prev.page + 1,
       }));
@@ -44,15 +43,15 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const getAllMovies = async (page: number) => {
     try {
       setIsLoading(true);
-      const movies = await fetchMovies(page);
-      setMovieList((prev) => ({
-        ...movies,
-        results: prev.results.concat(movies.results),
+      const newMovies = await fetchMovies(page);
+      setMovies((prev) => ({
+        ...newMovies,
+        results: prev.results.concat(newMovies.results),
       }));
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      setMovieList({ results: [], page: 1, total_pages: 1000 });
+      setMovies({ results: [], page: 1, total_pages: 1000 });
     }
   };
 
@@ -71,7 +70,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
         Filmes
       </PageTitle>
       <GridWithScroll>
-        {moviesList.results.map((movieProps, index) => {
+        {movies.results.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(
             ({ movieID }) => movieID === movieProps.movieID
           );
@@ -85,9 +84,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
               {(callback, { loading }) => {
                 return (
                   <Row
-                    ref={
-                      index === moviesList.results.length - 1 ? lastRef : null
-                    }
+                    ref={index === movies.results.length - 1 ? lastRef : null}
                     xs={6}
                     sm={4}
                     md={3}

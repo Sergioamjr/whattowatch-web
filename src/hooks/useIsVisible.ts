@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 export default (el: HTMLElement): boolean => {
   const [isVisible, setIsVisible] = useState(false);
-  const fn = ([entry]) => {
+  const callback = ([entry]) => {
     setIsVisible(entry.isIntersecting);
   };
 
   useEffect(() => {
-    const watch = new IntersectionObserver(fn);
+    const watch = new IntersectionObserver(callback);
     if (el) {
       watch.observe(el);
       return () => watch.unobserve(el);
