@@ -6,6 +6,11 @@ export const Grid = styled.div`
   margin: 0 -15px;
 `;
 
+export const GridWithScroll = styled(Grid)`
+  height: 100%;
+  overflow: auto;
+`;
+
 type Props = {
   xs?: number;
   sm?: number;

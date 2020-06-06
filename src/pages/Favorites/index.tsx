@@ -2,11 +2,11 @@ import React from "react";
 import MovieCard from "components/MovieCard";
 import { Mutation } from "react-apollo";
 import { DELETE_FAVORITE } from "fragments";
-import useQueryUser from "hooks/useQueryUser";
-import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Grid, Row } from "styles";
+import { GridWithScroll, Row } from "styles";
+import useQueryUser from "hooks/useQueryUser";
+import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 
 const Favorites = (): JSX.Element => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
@@ -22,7 +22,7 @@ const Favorites = (): JSX.Element => {
       ) : !getFavoritesByUserID.length ? (
         <p>Lista vazia</p>
       ) : (
-        <Grid>
+        <GridWithScroll>
           {getFavoritesByUserID.map((movieProps, index) => (
             <Mutation
               key={index}
@@ -50,7 +50,7 @@ const Favorites = (): JSX.Element => {
               }}
             </Mutation>
           ))}
-        </Grid>
+        </GridWithScroll>
       )}
     </Template>
   );

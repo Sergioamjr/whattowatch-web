@@ -1,22 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchMovies } from "services/movies";
 import { RouteComponentProps } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import MovieCard from "components/MovieCard";
-import useQueryUser from "hooks/useQueryUser";
-import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import useAppStore from "hooks/useAppStore";
 import { Movie } from "types/common";
-import { Grid, Row } from "styles";
+import { GridWithScroll, Row } from "styles";
+import useAppStore from "hooks/useAppStore";
+import useQueryUser from "hooks/useQueryUser";
+import useIsVisible from "hooks/useIsVisible";
+import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 
 const Movies = ({ history }: RouteComponentProps): JSX.Element => {
+  const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [moviesList, setMovieList] = useState([]);
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
+  const isVisible = useIsVisible(lastRef.current);
+  console.log(isVisible);
 
   useEffect(() => {
     getAllMovies();
@@ -45,7 +49,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
-      <Grid>
+      <GridWithScroll>
         {moviesList.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(
             ({ movieID }) => movieID === movieProps.id
@@ -59,7 +63,13 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
             >
               {(callback, { loading }) => {
                 return (
-                  <Row xs={6} sm={4} md={3} xl={2}>
+                  <Row
+                    ref={index === moviesList.length - 1 ? lastRef : null}
+                    xs={6}
+                    sm={4}
+                    md={3}
+                    xl={2}
+                  >
                     <MovieCard
                       _id={isInFavorites?._id}
                       isInFavorites={!!isInFavorites}
@@ -75,7 +85,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
             </Mutation>
           );
         })}
-      </Grid>
+      </GridWithScroll>
     </Template>
   );
 };
