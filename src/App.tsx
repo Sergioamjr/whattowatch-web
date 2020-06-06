@@ -13,7 +13,7 @@ import Lists from "pages/Lists";
 import Authentication from "components/Authentication";
 import SingleMovie from "pages/SingleMovie";
 
-const App: React.FC = () => {
+const App = (): JSX.Element => {
   return (
     <Router>
       <Switch>

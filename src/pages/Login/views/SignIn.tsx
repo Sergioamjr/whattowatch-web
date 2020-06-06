@@ -5,11 +5,11 @@ import { LOGIN } from "fragments";
 import { CreateAccountTypes } from "./../";
 import * as S from "./../style";
 
-const SingIn: React.FC<CreateAccountTypes> = ({
+const SingIn = ({
   toggleComponetView,
   onSuccess,
   onError,
-}) => {
+}: CreateAccountTypes): JSX.Element => {
   const [state, setState] = useState({
     email: "cersei@gmail.com",
     password: "gatinhalinda",

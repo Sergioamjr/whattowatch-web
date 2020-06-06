@@ -5,11 +5,11 @@ import { CREATE_NEW_USER } from "fragments";
 import { CreateAccountTypes } from "./../";
 import * as S from "./../style";
 
-const CreateAccount: React.FC<CreateAccountTypes> = ({
+const CreateAccount = ({
   toggleComponetView,
   onSuccess,
   onError,
-}) => {
+}: CreateAccountTypes): JSX.Element => {
   const [state, setState] = useState({
     name: "Batman",
     password: "gatinhalinda",

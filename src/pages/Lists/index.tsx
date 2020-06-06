@@ -2,7 +2,7 @@ import React from "react";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
 
-const Lists: React.FC = () => {
+const Lists = (): JSX.Element => {
   return (
     <Template>
       <PageTitle top={77} left={-177}>

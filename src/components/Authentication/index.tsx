@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import useQueryUser from "hooks/useQueryUser";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { ReactChildren } from "types/common";
 
-const Authentication: React.FC<RouteComponentProps> = ({
-  children,
-  history,
-}: RouteComponentProps) => {
+interface Props extends ReactChildren {
+  history: RouteComponentProps;
+}
+
+const Authentication = ({ children, history }: Props) => {
   const { token } = useQueryUser();
   useEffect(() => {
     if (!token) {

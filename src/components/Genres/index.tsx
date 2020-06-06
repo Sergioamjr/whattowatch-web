@@ -3,7 +3,7 @@ import { fetchGenres } from "services/movies";
 import * as S from "./style";
 import { Genres } from "types/common";
 
-const Genres: React.FC = () => {
+const Genres = (): JSX.Element => {
   const [genreList, setGenreList] = useState<Genres[]>([]);
   useEffect(() => {
     getGenres();

@@ -7,9 +7,7 @@ import { fetchSingleMovie } from "services/movies";
 import * as S from "./style";
 import { BASE_IMG } from "components/MovieCard";
 
-const SingleMovie: React.FC<RouteComponentProps> = (
-  props: RouteComponentProps
-) => {
+const SingleMovie = (props: RouteComponentProps): JSX.Element => {
   const { id } = props.match.params;
   const { setCachedMovie, cachedMovie } = useAppStore();
   const [movie, setMovie] = useState<Movie>(cachedMovie);

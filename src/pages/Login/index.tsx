@@ -17,9 +17,7 @@ export interface CreateAccountTypes {
   onError: (err: FixMeLater) => void;
 }
 
-const Login: React.FC<RouteComponentProps> = ({
-  history,
-}: RouteComponentProps) => {
+const Login = ({ history }: RouteComponentProps): JSX.Element => {
   const { setIsLogged } = useAppStore();
   const client = useApolloClient();
   const [current, send] = useMachine(stateMachine);

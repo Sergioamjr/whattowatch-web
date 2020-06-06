@@ -12,7 +12,7 @@ import PageTitle from "components/PageTitle";
 import useAppStore from "hooks/useAppStore";
 import { Movie } from "types/common";
 
-const Movies: React.FC = ({ history }: RouteComponentProps) => {
+const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [moviesList, setMovieList] = useState([]);

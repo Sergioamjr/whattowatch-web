@@ -8,7 +8,7 @@ import Template from "components/Template";
 import * as S from "./style";
 import PageTitle from "components/PageTitle";
 
-const Favorites: React.FC = () => {
+const Favorites = (): JSX.Element => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
   const { _id: userID } = useQueryUser();
 

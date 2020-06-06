@@ -1,6 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type FixMeLater = any;
 
+export type ReactChildren = {
+  children: React.ReactNode;
+};
+
 export type Movie = {
   title?: string;
   movieID?: number;

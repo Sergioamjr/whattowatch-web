@@ -6,7 +6,7 @@ import { Movie } from "types/common";
 
 export const BASE_IMG = "https://image.tmdb.org/t/p/w500/";
 
-interface MovieCardTypes {
+interface Props {
   _id: string;
   title: string;
   id: number;
@@ -18,7 +18,7 @@ interface MovieCardTypes {
   selectMovieAndRedirect: (movie: Movie) => void;
 }
 
-const MovieCard: React.FC<MovieCardTypes> = ({
+const MovieCard = ({
   _id,
   title,
   id: movieID,
@@ -29,7 +29,7 @@ const MovieCard: React.FC<MovieCardTypes> = ({
   isInFavorites,
   selectMovieAndRedirect,
   ...props
-}: MovieCardTypes) => {
+}: Props) => {
   const addToFavorite = () => {
     callback({
       variables: {

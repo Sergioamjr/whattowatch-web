@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState } from "react";
 import useQueryUser from "./useQueryUser";
-import { Movie } from "types/common";
+import { Movie, ReactChildren } from "types/common";
 
 interface AppStoreTypes {
   isLogged: boolean;
@@ -19,7 +19,7 @@ const defaultAppStore = {
 
 export const AppStore = createContext<AppStoreTypes>(defaultAppStore);
 
-export const StoreProvider: React.FC = ({ children }) => {
+export const StoreProvider = ({ children }: ReactChildren): JSX.Element => {
   const { token } = useQueryUser();
   const [cachedMovie, setCachedMovie] = useState<Movie>(
     defaultAppStore.cachedMovie

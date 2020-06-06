@@ -2,12 +2,13 @@ import React from "react";
 import Header from "components/Header";
 import { Container } from "styles";
 import * as S from "./style";
+import { ReactChildren } from "types/common";
 
-interface Props {
+interface Props extends ReactChildren {
   withGenres?: boolean;
 }
 
-const Template: React.FC<Props> = ({ children, ...props }) => {
+const Template = ({ children, ...props }: Props): JSX.Element => {
   return (
     <S.Template>
       <Container>
