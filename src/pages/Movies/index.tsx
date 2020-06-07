@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { fetchMovies } from "services/movies";
 import { RouteComponentProps } from "react-router-dom";
 import { Mutation } from "react-apollo";
@@ -6,7 +6,7 @@ import MovieCard from "components/MovieCard";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Movie, MoviePageState } from "types/common";
+import { Movie } from "types/common";
 import { GridWithScroll, Row } from "styles";
 import useAppStore from "hooks/useAppStore";
 import useQueryUser from "hooks/useQueryUser";
@@ -15,45 +15,47 @@ import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import * as S from "./style";
 
 const Movies = ({ history }: RouteComponentProps): JSX.Element => {
+  const { movies, setMovies } = useAppStore();
   const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [movies, setMovies] = useState<MoviePageState>({
-    results: [],
-    page: 1,
-    total_pages: 1000,
-  });
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
 
+  const getAllMovies = useCallback(
+    async (page: number) => {
+      try {
+        setIsLoading(true);
+        const newMovies = await fetchMovies(page);
+        setMovies({
+          ...newMovies,
+          results: movies.results.concat(newMovies.results),
+        });
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+        setMovies({ results: [], page: 1, total_pages: 1000 });
+      }
+    },
+    [movies.results, setMovies]
+  );
+
   useEffect(() => {
-    getAllMovies(movies.page);
-  }, [movies.page]);
+    if (movies.page === 1) {
+      getAllMovies(movies.page);
+    }
+  }, [movies.page, getAllMovies]);
 
   useEffect(() => {
     if (isVisible) {
-      setMovies((prev) => ({
-        ...prev,
-        page: prev.page + 1,
-      }));
+      setMovies({
+        ...movies,
+        page: movies.page + 1,
+      });
+      getAllMovies(movies.page + 1);
     }
-  }, [isVisible]);
-
-  const getAllMovies = async (page: number) => {
-    try {
-      setIsLoading(true);
-      const newMovies = await fetchMovies(page);
-      setMovies((prev) => ({
-        ...newMovies,
-        results: prev.results.concat(newMovies.results),
-      }));
-      setIsLoading(false);
-    } catch (err) {
-      setIsLoading(false);
-      setMovies({ results: [], page: 1, total_pages: 1000 });
-    }
-  };
+  }, [isVisible, getAllMovies, movies, setMovies]);
 
   const onErrorHandler = (error) => {
     console.log("error", error);

@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState } from "react";
 import useQueryUser from "./useQueryUser";
-import { Movie, OptionalMovie, ReactChildren } from "types/common";
-
-interface AppStoreTypes {
-  isLogged: boolean;
-  cachedMovie: Movie | OptionalMovie;
-  setCachedMovie: (arg0: Movie | OptionalMovie) => void;
-  setIsLogged: (arg0: boolean) => void;
-}
+import {
+  Movie,
+  OptionalMovie,
+  ReactChildren,
+  AppStoreTypes,
+  MoviePageState,
+} from "types/common";
 
 const defaultAppStore = {
   cachedMovie: {},
   isLogged: false,
   setCachedMovie: () => {},
   setIsLogged: () => {},
+  movies: {
+    results: [],
+    page: 1,
+    total_pages: 1000,
+  },
+  setMovies: () => {},
 };
 
 export const AppStore = createContext<AppStoreTypes>(defaultAppStore);
@@ -24,11 +29,19 @@ export const StoreProvider = ({ children }: ReactChildren): JSX.Element => {
   const [cachedMovie, setCachedMovie] = useState<Movie | OptionalMovie>(
     defaultAppStore.cachedMovie
   );
+  const [movies, setMovies] = useState<MoviePageState>(defaultAppStore.movies);
   const [isLogged, setIsLogged] = useState(!!token);
 
   return (
     <AppStore.Provider
-      value={{ cachedMovie, setCachedMovie, isLogged, setIsLogged }}
+      value={{
+        cachedMovie,
+        setCachedMovie,
+        isLogged,
+        setIsLogged,
+        movies,
+        setMovies,
+      }}
     >
       {children}
     </AppStore.Provider>
