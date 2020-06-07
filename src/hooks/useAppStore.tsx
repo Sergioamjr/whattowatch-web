@@ -16,7 +16,7 @@ const defaultAppStore = {
   setIsLogged: () => {},
   movies: {
     results: [],
-    page: 1,
+    page: 0,
     total_pages: 1000,
   },
   setMovies: () => {},

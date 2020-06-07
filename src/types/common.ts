@@ -8,7 +8,7 @@ export type ReactChildren = {
   children: React.ReactNode;
 };
 
-export type Genres = {
+export type GenresType = {
   id: number;
   name: string;
 };

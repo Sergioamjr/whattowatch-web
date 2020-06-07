@@ -17,7 +17,7 @@ export const ListItemBtn = styled.button`
   padding: 8px 8px;
   border-radius: 40px;
   color: #fff;
-  background-image: linear-gradient(to left top, #40816d, #4c4081);
+  background-color: #40816d;
   font-size: 0.8em;
   white-space: pre;
 `;

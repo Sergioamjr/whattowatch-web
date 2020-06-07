@@ -7,6 +7,7 @@ import PageTitle from "components/PageTitle";
 import { GridWithScroll, Row } from "styles";
 import useQueryUser from "hooks/useQueryUser";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
+import * as S from "./style";
 
 const Favorites = (): JSX.Element => {
   const { loading, getFavoritesByUserID, refetch } = useQueryUserFavorites();
@@ -18,9 +19,9 @@ const Favorites = (): JSX.Element => {
         Favoritos
       </PageTitle>
       {loading ? (
-        <p>Carregando...</p>
+        <S.Text>Carregando...</S.Text>
       ) : !getFavoritesByUserID.length ? (
-        <p>Lista vazia</p>
+        <S.Text>Lista vazia</S.Text>
       ) : (
         <GridWithScroll>
           {getFavoritesByUserID.map((movieProps, index) => (

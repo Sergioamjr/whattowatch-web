@@ -45,8 +45,6 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
     ({ movieID }) => movieID === movie.movieID
   );
 
-  console.log(movie);
-
   return (
     <Mutation
       onError={onErrorHandler}

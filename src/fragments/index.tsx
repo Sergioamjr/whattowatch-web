@@ -49,6 +49,7 @@ export const CREATE_NEW_USER = gql`
       name
       email
       token
+      _id
     }
   }
 `;

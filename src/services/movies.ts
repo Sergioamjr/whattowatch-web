@@ -1,7 +1,8 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { FixMeLater, Genres, Movie } from "types/common";
+import { FixMeLater, GenresType, Movie } from "types/common";
 import mock from "./mock";
+import GenresMock from "./mock/genres.json";
 
 const key = "a1dc06d0f8d65b34ac156d07fe333060";
 const baseURL = "https://api.themoviedb.org";
@@ -35,14 +36,12 @@ export const fetchMovies = (page: number): FixMeLater => {
     .then(formatMoviesResponse);
 };
 
-const formatGenresResponse = (response): Genres[] => {
-  return response.data.genres;
+const formatGenresResponse = (response): GenresType[] => {
+  return response.genres;
 };
 
-export const fetchGenres = (): Promise<Genres[]> => {
-  return axios
-    .get(`${baseURL}/3/genre/movie/list?api_key=api_key=${key}`)
-    .then(formatGenresResponse);
+export const fetchGenres = (): GenresType[] => {
+  return formatGenresResponse(GenresMock);
 };
 
 const normalizeSingleMovie = ({ data }) => {

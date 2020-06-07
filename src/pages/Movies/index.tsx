@@ -13,8 +13,10 @@ import useQueryUser from "hooks/useQueryUser";
 import useIsVisible from "hooks/useIsVisible";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import * as S from "./style";
+import Genres from "components/Genres";
 
 const Movies = ({ history }: RouteComponentProps): JSX.Element => {
+  console.log("movies");
   const { movies, setMovies } = useAppStore();
   const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
@@ -24,19 +26,18 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const isVisible = useIsVisible(lastRef.current);
 
   useEffect(() => {
-    getAllMovies(movies.page);
-  }, [movies.page]);
+    if (!movies.results.length) {
+      getMoreMovies(movies.page + 1);
+    }
+  }, [movies.results]);
 
   useEffect(() => {
     if (isVisible) {
-      setMovies({
-        ...movies,
-        page: movies.page + 1,
-      });
+      getMoreMovies(movies.page + 1);
     }
   }, [isVisible]);
 
-  const getAllMovies = useCallback(
+  const getMoreMovies = useCallback(
     async (page: number) => {
       try {
         setIsLoading(true);
@@ -68,6 +69,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
+      <Genres />
       <GridWithScroll>
         {movies.results.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(

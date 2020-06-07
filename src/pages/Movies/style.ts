@@ -6,3 +6,9 @@ export const Loading = styled.div`
   text-align: center;
   color: #fff;
 `;
+
+export const Point = styled.div`
+  height: 1px;
+  background: red;
+  width: 1px;
+`;

@@ -31,7 +31,7 @@ const Login = ({ history }: RouteComponentProps): JSX.Element => {
     });
     client.writeData({ data });
     setIsLogged(true);
-    history.push("/movies");
+    history.push("/filmes");
   };
 
   const onError = (err) => {
