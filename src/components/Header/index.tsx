@@ -13,7 +13,7 @@ const Header = ({ history }: RouteComponentProps) => {
     clearLocalStorage();
     client.writeData({ data: {} });
     setIsLogged(false);
-    history.push("/");
+    history.push("/filmes");
   };
 
   return (
