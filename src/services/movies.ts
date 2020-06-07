@@ -51,7 +51,7 @@ const normalizeSingleMovie = ({ data }) => {
     movieID: data.id,
     adult: data.adult,
     backdropPath: data.backdrop_path,
-    genre_ids: data.genres,
+    genre_ids: data.genres.map(({ id }) => id),
     original_language: data.original_language,
     posterPath: data.poster_path,
     original_title: data.original_title,

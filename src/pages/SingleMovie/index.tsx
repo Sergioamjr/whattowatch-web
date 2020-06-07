@@ -12,12 +12,13 @@ import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import { Mutation } from "react-apollo";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import useQueryUser from "hooks/useQueryUser";
+import { getGenreLabel } from "utils";
 
 const SingleMovie = (props: RouteComponentProps): JSX.Element => {
   const { id } = props.match.params;
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const { _id: userID } = useQueryUser();
-  const { setCachedMovie, cachedMovie } = useAppStore();
+  const { setCachedMovie, cachedMovie, isLogged } = useAppStore();
   const [movie, setMovie] = useState<Movie | OptionalMovie>(cachedMovie);
 
   const getMovieDetails = useCallback(async () => {
@@ -44,6 +45,8 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
     ({ movieID }) => movieID === movie.movieID
   );
 
+  console.log(movie);
+
   return (
     <Mutation
       onError={onErrorHandler}
@@ -53,48 +56,60 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
       {(callback, { loading }) => {
         return (
           <Template>
-            <S.Wrapper>
-              <GridWithScroll>
-                <Row sm={4}>
-                  <S.Img src={`${BASE_IMG}/${movie.posterPath}`} alt="movie" />
-                </Row>
-                <Row sm={8}>
-                  <S.Title>{movie.title}</S.Title>
-                  {[1, 2, 3].map((i) => (
-                    <S.Badge key={i}>Genero</S.Badge>
-                  ))}
-                  <S.Text>{movie.vote_average}</S.Text>
-                  <S.Text>{movie.overview}</S.Text>
-                  {isInFavorites ? (
-                    <Button
-                      disabled={loading}
-                      onClick={() => {
-                        callback({
-                          variables: {
-                            _id: isInFavorites._id,
-                          },
-                        });
-                      }}
-                    >
-                      Remover dos favoritos
-                    </Button>
-                  ) : (
-                    <Button
-                      disabled={loading}
-                      onClick={() => {
-                        callback({
-                          variables: {
-                            ...movie,
-                            userID,
-                          },
-                        });
-                      }}
-                    >
-                      Adicionar aos favoritos
-                    </Button>
-                  )}
-                </Row>
-              </GridWithScroll>
+            <S.Wrapper smaller>
+              {movie.movieID ? (
+                <GridWithScroll>
+                  <Row sm={4}>
+                    <S.Img
+                      src={`${BASE_IMG}/${movie.posterPath}`}
+                      alt="movie"
+                    />
+                  </Row>
+                  <Row sm={8}>
+                    <S.Title>{movie.title}</S.Title>
+                    {movie.genre_ids &&
+                      movie.genre_ids.map((id) => (
+                        <S.Badge key={id}>{getGenreLabel(id)}</S.Badge>
+                      ))}
+                    <S.Text>{movie.vote_average}</S.Text>
+                    <S.Text>{movie.overview}</S.Text>
+                    {isLogged && (
+                      <div>
+                        {isInFavorites ? (
+                          <Button
+                            disabled={loading}
+                            onClick={() => {
+                              callback({
+                                variables: {
+                                  _id: isInFavorites._id,
+                                },
+                              });
+                            }}
+                          >
+                            Remover dos favoritos
+                          </Button>
+                        ) : (
+                          <Button
+                            disabled={loading}
+                            onClick={() => {
+                              callback({
+                                variables: {
+                                  ...movie,
+                                  userID,
+                                },
+                              });
+                            }}
+                          >
+                            Adicionar aos favoritos
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                  </Row>
+                </GridWithScroll>
+              ) : (
+                <p>Pesquisando...</p>
+              )}
             </S.Wrapper>
           </Template>
         );

@@ -5,14 +5,16 @@ import { LOGIN } from "fragments";
 import { CreateAccountTypes } from "./../";
 import * as S from "./../style";
 
+// email: "cersei@gmail.com",
+// password: "gatinhalinda",
 const SingIn = ({
   toggleComponetView,
   onSuccess,
   onError,
 }: CreateAccountTypes): JSX.Element => {
   const [state, setState] = useState({
-    email: "cersei@gmail.com",
-    password: "gatinhalinda",
+    email: "",
+    password: "",
   });
 
   const onChangeHandle = ({ target: { value, name } }) => {

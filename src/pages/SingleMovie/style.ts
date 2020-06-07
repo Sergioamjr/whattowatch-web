@@ -19,14 +19,6 @@ export const Img = styled.img`
   margin-bottom: 15px;
 `;
 
-export const Grid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  overflow: auto;
-  height: 100%;
-`;
-
 export const Wrapper = styled.div`
   overflow: auto;
   height: 100%;

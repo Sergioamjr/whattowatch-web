@@ -11,9 +11,9 @@ const CreateAccount = ({
   onError,
 }: CreateAccountTypes): JSX.Element => {
   const [state, setState] = useState({
-    name: "Batman",
-    password: "gatinhalinda",
-    email: "cersei@gmail.com",
+    name: "",
+    password: "",
+    email: "",
   });
 
   const onChangeHandle = ({ target: { value, name } }) => {

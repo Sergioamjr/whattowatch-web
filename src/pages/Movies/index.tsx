@@ -23,6 +23,19 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
 
+  useEffect(() => {
+    getAllMovies(movies.page);
+  }, [movies.page]);
+
+  useEffect(() => {
+    if (isVisible) {
+      setMovies({
+        ...movies,
+        page: movies.page + 1,
+      });
+    }
+  }, [isVisible]);
+
   const getAllMovies = useCallback(
     async (page: number) => {
       try {
@@ -40,22 +53,6 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
     },
     [movies.results, setMovies]
   );
-
-  useEffect(() => {
-    if (movies.page === 1) {
-      getAllMovies(movies.page);
-    }
-  }, [movies.page, getAllMovies]);
-
-  useEffect(() => {
-    if (isVisible) {
-      setMovies({
-        ...movies,
-        page: movies.page + 1,
-      });
-      getAllMovies(movies.page + 1);
-    }
-  }, [isVisible, getAllMovies, movies, setMovies]);
 
   const onErrorHandler = (error) => {
     console.log("error", error);
