@@ -6,9 +6,17 @@ import { Movie, OptionalMovie } from "types/common";
 import { fetchSingleMovie } from "services/movies";
 import * as S from "./style";
 import { BASE_IMG } from "components/MovieCard";
+import { GridWithScroll, Row } from "styles";
+import Button from "components/Button";
+import useQueryUserFavorites from "hooks/useQueryUserFavorites";
+import { Mutation } from "react-apollo";
+import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
+import useQueryUser from "hooks/useQueryUser";
 
 const SingleMovie = (props: RouteComponentProps): JSX.Element => {
   const { id } = props.match.params;
+  const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
+  const { _id: userID } = useQueryUser();
   const { setCachedMovie, cachedMovie } = useAppStore();
   const [movie, setMovie] = useState<Movie | OptionalMovie>(cachedMovie);
 
@@ -28,18 +36,70 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
     return () => setCachedMovie({});
   }, [movie.movieID, setCachedMovie, getMovieDetails]);
 
+  const onErrorHandler = (error) => {
+    console.log("error", error);
+  };
+
+  const isInFavorites = getFavoritesByUserID.find(
+    ({ movieID }) => movieID === movie.movieID
+  );
+
   return (
-    <Template>
-      <S.Wrapper>
-        <S.Img src={`${BASE_IMG}/${movie.posterPath}`} alt="movie" />
-        <S.Text>{movie.title}</S.Text>
-        {[1, 2, 3].map((i) => (
-          <S.Badge key={i}>Genero</S.Badge>
-        ))}
-        <S.Text>{movie.vote_average}</S.Text>
-        <S.Text>{movie.overview}</S.Text>
-      </S.Wrapper>
-    </Template>
+    <Mutation
+      onError={onErrorHandler}
+      onCompleted={refetch}
+      mutation={isInFavorites ? DELETE_FAVORITE : ADD_MOVIE_TO_FAVORITE}
+    >
+      {(callback, { loading }) => {
+        return (
+          <Template>
+            <S.Wrapper>
+              <GridWithScroll>
+                <Row sm={4}>
+                  <S.Img src={`${BASE_IMG}/${movie.posterPath}`} alt="movie" />
+                </Row>
+                <Row sm={8}>
+                  <S.Title>{movie.title}</S.Title>
+                  {[1, 2, 3].map((i) => (
+                    <S.Badge key={i}>Genero</S.Badge>
+                  ))}
+                  <S.Text>{movie.vote_average}</S.Text>
+                  <S.Text>{movie.overview}</S.Text>
+                  {isInFavorites ? (
+                    <Button
+                      disabled={loading}
+                      onClick={() => {
+                        callback({
+                          variables: {
+                            _id: isInFavorites._id,
+                          },
+                        });
+                      }}
+                    >
+                      Remover dos favoritos
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={loading}
+                      onClick={() => {
+                        callback({
+                          variables: {
+                            ...movie,
+                            userID,
+                          },
+                        });
+                      }}
+                    >
+                      Adicionar aos favoritos
+                    </Button>
+                  )}
+                </Row>
+              </GridWithScroll>
+            </S.Wrapper>
+          </Template>
+        );
+      }}
+    </Mutation>
   );
 };
 

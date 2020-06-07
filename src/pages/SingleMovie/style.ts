@@ -1,13 +1,22 @@
 import styled from "styled-components";
 
+export const Title = styled.h3`
+  color: #fff;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.3em;
+`;
+
 export const Text = styled.p`
   color: #fff;
   margin-bottom: 15px;
+  font-weight: lighter;
+  text-align: justify;
 `;
 
 export const Img = styled.img`
-  width: 200px;
   border-radius: 3px;
+  margin-bottom: 15px;
 `;
 
 export const Grid = styled.div`
