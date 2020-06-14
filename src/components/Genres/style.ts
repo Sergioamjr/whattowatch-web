@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const List = styled.ul`
   display: flex;
@@ -12,7 +13,7 @@ export const ListItem = styled.li`
   }
 `;
 
-export const ListItemBtn = styled.button`
+export const ListItemBtn = styled(Link)`
   border: 0;
   padding: 8px 8px;
   border-radius: 40px;
@@ -20,4 +21,6 @@ export const ListItemBtn = styled.button`
   background-color: #40816d;
   font-size: 0.8em;
   white-space: pre;
+  display: block;
+  text-decoration: none;
 `;

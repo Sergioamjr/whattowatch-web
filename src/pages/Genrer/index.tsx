@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { fetchMovies } from "services/movies";
+import { fetchMoviesByGenrer } from "services/movies";
 import { RouteComponentProps } from "react-router-dom";
 import { Mutation } from "react-apollo";
 import MovieCard from "components/MovieCard";
 import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Movie } from "types/common";
+import { Movie, MoviePageState } from "types/common";
 import { GridWithScroll, Row } from "styles";
 import useAppStore from "hooks/useAppStore";
 import useQueryUser from "hooks/useQueryUser";
@@ -14,21 +14,30 @@ import useIsVisible from "hooks/useIsVisible";
 import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import * as S from "./style";
 import Genres from "components/Genres";
+import { getGenreId } from "utils";
 
-const Movies = ({ history }: RouteComponentProps): JSX.Element => {
-  const { movies, setMovies } = useAppStore();
+const defaultMovies = {
+  results: [],
+  page: 0,
+  total_pages: 1000,
+};
+
+const Genrer = (props: RouteComponentProps): JSX.Element => {
+  const id = getGenreId(props.match.params.slug);
+  const [movies, setMovies] = useState<MoviePageState>(defaultMovies);
   const lastRef = useRef<HTMLElement | null>(null);
   const { setCachedMovie } = useAppStore();
   const { _id: userID } = useQueryUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
+  console.log(id);
 
   const getMoreMovies = useCallback(
     async (page: number) => {
       try {
         setIsLoading(true);
-        const newMovies = await fetchMovies(page);
+        const newMovies = await fetchMoviesByGenrer(page, id);
         setMovies({
           ...newMovies,
           results: movies.results.concat(newMovies.results),
@@ -52,7 +61,11 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
     if (isVisible) {
       getMoreMovies(movies.page + 1);
     }
-  }, [isVisible, getMoreMovies, movies.page]);
+  }, [isVisible]);
+
+  useEffect(() => {
+    setMovies(defaultMovies);
+  }, [id]);
 
   const onErrorHandler = (error) => {
     console.log("error", error);
@@ -60,13 +73,13 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
 
   const selectMovieAndRedirect = (movie: Movie): void => {
     setCachedMovie(movie);
-    history.push(`/filmes/${movie.movieID}`);
+    // history.push(`/filmes/${movie.movieID}`);
   };
 
   return (
     <Template>
-      <PageTitle top={90} left={-190}>
-        Filmes
+      <PageTitle top={105} left={-205}>
+        Genero
       </PageTitle>
       <Genres />
       <GridWithScroll>
@@ -111,4 +124,4 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
   );
 };
 
-export default Movies;
+export default Genrer;

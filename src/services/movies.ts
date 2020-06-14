@@ -4,7 +4,7 @@ import { FixMeLater, GenresType, Movie } from "types/common";
 import mock from "./mock";
 import GenresMock from "./mock/genres.json";
 
-const key = "a1dc06d0f8d65b34ac156d07fe333060";
+const api_key = "a1dc06d0f8d65b34ac156d07fe333060";
 const baseURL = "https://api.themoviedb.org";
 const useMock = process.env.REACT_APP_USE_MOCK === "true";
 
@@ -30,9 +30,13 @@ const formatMoviesResponse = ({ data }) => {
 
 export const fetchMovies = (page: number): FixMeLater => {
   return axios
-    .get(
-      `${baseURL}/3/discover/movie?include_adult=false&api_key=${key}&page=${page}`
-    )
+    .get(`${baseURL}/3/discover/movie`, {
+      params: {
+        api_key,
+        page,
+        include_adult: false,
+      },
+    })
     .then(formatMoviesResponse);
 };
 
@@ -65,6 +69,25 @@ const normalizeSingleMovie = ({ data }) => {
 
 export const fetchSingleMovie = (id: number): Promise<Movie> => {
   return axios
-    .get(`${baseURL}/3/movie/${id}?api_key=${key}`)
+    .get(`${baseURL}/3/movie/${id}`, {
+      params: {
+        api_key,
+      },
+    })
     .then(normalizeSingleMovie);
+};
+
+export const fetchMoviesByGenrer = (
+  page: number,
+  id: number
+): Promise<FixMeLater> => {
+  return axios
+    .get(`${baseURL}/3/discover/movie`, {
+      params: {
+        with_genres: id,
+        page,
+        api_key,
+      },
+    })
+    .then(formatMoviesResponse);
 };

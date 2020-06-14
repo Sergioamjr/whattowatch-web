@@ -12,6 +12,7 @@ import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
 import Authentication from "components/Authentication";
 import SingleMovie from "pages/SingleMovie";
+import Genres from "pages/Genrer";
 
 const App = (): JSX.Element => {
   return (
@@ -37,6 +38,12 @@ const App = (): JSX.Element => {
           )}
           path="/listas"
         />
+        <Route
+          exact
+          render={(props) => <Genres {...props} />}
+          path="/genero/:slug"
+        />
+
         <Route exact render={(props) => <Movies {...props} />} path="/filmes" />
         <Route
           exact
