@@ -31,10 +31,9 @@ const Genrer = (props: RouteComponentProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
-  console.log(id);
 
   const getMoreMovies = useCallback(
-    async (page: number) => {
+    async (page: number, id: number | null) => {
       try {
         setIsLoading(true);
         const newMovies = await fetchMoviesByGenrer(page, id);
@@ -53,15 +52,15 @@ const Genrer = (props: RouteComponentProps): JSX.Element => {
 
   useEffect(() => {
     if (!movies.results.length) {
-      getMoreMovies(movies.page + 1);
+      getMoreMovies(movies.page + 1, id);
     }
-  }, [movies.results, getMoreMovies, movies.page]);
+  }, [movies.results, getMoreMovies, movies.page, id]);
 
   useEffect(() => {
     if (isVisible) {
-      getMoreMovies(movies.page + 1);
+      getMoreMovies(movies.page + 1, id);
     }
-  }, [isVisible]);
+  }, [isVisible, getMoreMovies, id, movies.page]);
 
   useEffect(() => {
     setMovies(defaultMovies);
@@ -81,7 +80,7 @@ const Genrer = (props: RouteComponentProps): JSX.Element => {
       <PageTitle top={105} left={-205}>
         Genero
       </PageTitle>
-      <Genres />
+      <Genres actived={id} />
       <GridWithScroll>
         {movies.results.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(

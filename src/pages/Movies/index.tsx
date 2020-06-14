@@ -68,7 +68,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
-      <Genres />
+      <Genres actived={0} />
       <GridWithScroll>
         {movies.results.map((movieProps, index) => {
           const isInFavorites = getFavoritesByUserID.find(
