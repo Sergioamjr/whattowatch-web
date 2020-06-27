@@ -9,11 +9,11 @@
 
 - [x] Migrar para TS.
 - [x] Criar alias.
-- [ ] Controlar sessões de usuários.
-- [ ] Criar layout.
+- [x] Controlar sessões de usuários.
+- [x] Criar layout.
 - [x] Criar componentes de cards, botões, header.
 - [ ] Integrar login com Google.
-- [ ] Criar tela de lista de filmes.
+- [x] Criar tela de lista de filmes.
 - [ ] Criar pesquisa de filmes.
 - [ ] Exibir séries.
 - [ ] Escrever testes e2e.
@@ -21,7 +21,7 @@
 - [ ] Hospedar API, APP e Web.
 - [ ] Criar landing page.
 - [ ] Adicionar Google Analytics.
-- [ ] Criar store com Context API
+- [x] Criar store com Context API
 
 ### Projetos relacionados:
 
