@@ -1,35 +1,44 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { Mutation } from "react-apollo";
 import { LOGIN } from "fragments";
 import { CreateAccountTypes } from "./../";
 import * as S from "./../style";
 
-// email: "cersei@gmail.com",
-// password: "gatinhalinda",
 const SingIn = ({
   toggleComponetView,
   onSuccess,
   onError,
 }: CreateAccountTypes): JSX.Element => {
-  const [state, setState] = useState({
-    email: "",
-    password: "",
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      checkpassword: "",
+    },
+    validationSchema: yup.object().shape({
+      email: yup.string().email().required(),
+      password: yup.string().required(),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
   });
 
-  const onChangeHandle = ({ target: { value, name } }) => {
-    setState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  console.log(formik);
+
+  const isValidByFormik =
+    !formik.isValid ||
+    !formik.values.email ||
+    formik.values.checkpassword !== formik.values.password;
 
   return (
     <Mutation
       onError={onError}
       onCompleted={({ login }) => onSuccess(login)}
       mutation={LOGIN}
-      variables={state}
+      variables={formik.values}
     >
       {(login, { loading }) => {
         return (
@@ -38,23 +47,27 @@ const SingIn = ({
             <S.Form>
               <S.Input
                 placeholder="Seu e-mail"
-                onChange={onChangeHandle}
+                onChange={formik.handleChange}
                 type="text"
                 name="email"
-                value={state.email}
+                value={formik.values.email}
               />
               <S.Input
                 placeholder="Sua senha"
-                onChange={onChangeHandle}
+                onChange={formik.handleChange}
                 type="password"
                 name="password"
-                value={state.password}
+                value={formik.values.password}
+              />
+              <S.Input
+                placeholder="Confirme sua senha"
+                onChange={formik.handleChange}
+                type="password"
+                name="checkpassword"
+                value={formik.values.checkpassword}
               />
               <S.ButtonsWrapper>
-                <S.Button
-                  disabled={loading || !state.email || !state.password}
-                  onClick={login}
-                >
+                <S.Button disabled={isValidByFormik || loading} onClick={login}>
                   Login
                 </S.Button>
                 <S.Link
@@ -71,12 +84,6 @@ const SingIn = ({
       }}
     </Mutation>
   );
-};
-
-SingIn.propTypes = {
-  onError: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  toggleComponetView: PropTypes.func.isRequired,
 };
 
 export default SingIn;
