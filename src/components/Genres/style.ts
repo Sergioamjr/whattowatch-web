@@ -13,12 +13,12 @@ export const ListItem = styled.li`
   }
 `;
 
-export const ListItemBtn = styled<{ actived: boolean }>(Link)`
+export const ListItemBtn = styled<{ $actived: boolean }>(Link)`
   border: 0;
   padding: 8px 8px;
   border-radius: 40px;
   color: #fff;
-  background-color: ${({ actived }) => (actived ? "#333" : "#40816d")};
+  background-color: ${({ $actived }) => ($actived ? "#333" : "#40816d")};
   font-size: 0.8em;
   white-space: pre;
   display: block;
