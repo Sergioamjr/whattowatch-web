@@ -65,9 +65,13 @@ const CreateAccount = ({
                 >
                   Criar conta
                 </S.Button>
-                <S.Button disabled={loading} onClick={toggleComponetView}>
+                <S.Link
+                  href="/#"
+                  disabled={loading}
+                  onClick={toggleComponetView}
+                >
                   Fazer login
-                </S.Button>
+                </S.Link>
               </S.ButtonsWrapper>
             </S.Form>
           </div>

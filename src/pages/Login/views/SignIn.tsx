@@ -51,12 +51,19 @@ const SingIn = ({
                 value={state.password}
               />
               <S.ButtonsWrapper>
-                <S.Button disabled={loading} onClick={login}>
+                <S.Button
+                  disabled={loading || !state.email || !state.password}
+                  onClick={login}
+                >
                   Login
                 </S.Button>
-                <S.Button disabled={loading} onClick={toggleComponetView}>
+                <S.Link
+                  href="/#"
+                  disabled={loading}
+                  onClick={toggleComponetView}
+                >
                   Criar Conta
-                </S.Button>
+                </S.Link>
               </S.ButtonsWrapper>
             </S.Form>
           </div>

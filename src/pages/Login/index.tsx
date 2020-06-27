@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useApolloClient } from "@apollo/react-hooks";
 import { useMachine } from "@xstate/react";
@@ -12,7 +12,7 @@ import Template from "components/Template";
 import useAppStore from "hooks/useAppStore";
 
 export interface CreateAccountTypes {
-  toggleComponetView: () => void;
+  toggleComponetView: (event: React.MouseEvent<HTMLElement>) => void;
   onSuccess: (data: FixMeLater) => void;
   onError: (err: FixMeLater) => void;
 }
@@ -20,8 +20,11 @@ export interface CreateAccountTypes {
 const Login = ({ history }: RouteComponentProps): JSX.Element => {
   const { setIsLogged } = useAppStore();
   const client = useApolloClient();
+  const [error, setError] = useState<string>("");
   const [current, send] = useMachine(stateMachine);
-  const toggleComponetView = () => {
+  const toggleComponetView = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    setError("");
     send("TOGGLE");
   };
 
@@ -36,6 +39,7 @@ const Login = ({ history }: RouteComponentProps): JSX.Element => {
 
   const onError = (err) => {
     console.log("onerr", err);
+    setError(err.message.replace("GraphQL error:", ""));
   };
 
   const sharedMethods = {
@@ -47,10 +51,13 @@ const Login = ({ history }: RouteComponentProps): JSX.Element => {
   return (
     <Template>
       <S.Template>
-        {current.value === "createAccount" && (
-          <CreateAccount {...sharedMethods} />
-        )}
-        {current.value === "signIn" && <SingIn {...sharedMethods} />}
+        <div>
+          {current.value === "createAccount" && (
+            <CreateAccount {...sharedMethods} />
+          )}
+          {current.value === "signIn" && <SingIn {...sharedMethods} />}
+          {error && <S.ErrorAlert>{error}</S.ErrorAlert>}
+        </div>
       </S.Template>
     </Template>
   );

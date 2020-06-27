@@ -41,9 +41,29 @@ export const Button = styled.button`
   padding: 10px;
   border-radius: 3px;
   box-shadow: 2px 2px 5px #a0a0a0;
+  &:disabled {
+    opacity: 0.3;
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+`;
+
+export const ErrorAlert = styled.p`
+  background: red;
+  margin-top: 10px;
+  color: #fff;
+  border-radius: 3px;
+  padding: 5px;
+  max-width: 400px;
+  min-width: 400px;
+  width: 100%;
+`;
+
+export const Link = styled.a`
+  color: #38416b;
+  font-size: 0.8em;
 `;
