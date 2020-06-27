@@ -15,23 +15,19 @@ const SingIn = ({
     initialValues: {
       email: "",
       password: "",
-      checkpassword: "",
     },
     validationSchema: yup.object().shape({
       email: yup.string().email().required(),
       password: yup.string().required(),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: () => {
+      console.log("submit");
     },
   });
 
   console.log(formik);
 
-  const isValidByFormik =
-    !formik.isValid ||
-    !formik.values.email ||
-    formik.values.checkpassword !== formik.values.password;
+  const isValidByFormik = !formik.isValid || !formik.values.email;
 
   return (
     <Mutation
@@ -59,13 +55,7 @@ const SingIn = ({
                 name="password"
                 value={formik.values.password}
               />
-              <S.Input
-                placeholder="Confirme sua senha"
-                onChange={formik.handleChange}
-                type="password"
-                name="checkpassword"
-                value={formik.values.checkpassword}
-              />
+
               <S.ButtonsWrapper>
                 <S.Button disabled={isValidByFormik || loading} onClick={login}>
                   Login

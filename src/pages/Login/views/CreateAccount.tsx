@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
-import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import React from "react";
 import { Mutation } from "react-apollo";
 import { CREATE_NEW_USER } from "fragments";
 import { CreateAccountTypes } from "./../";
@@ -10,23 +11,28 @@ const CreateAccount = ({
   onSuccess,
   onError,
 }: CreateAccountTypes): JSX.Element => {
-  const [state, setState] = useState({
-    name: "",
-    password: "",
-    email: "",
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      password: "",
+      email: "",
+    },
+    validationSchema: yup.object().shape({
+      name: yup.string().required(),
+      email: yup.string().email().required(),
+      password: yup.string().required(),
+    }),
+    onSubmit: () => {
+      console.log("submit");
+    },
   });
 
-  const onChangeHandle = ({ target: { value, name } }) => {
-    setState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const isValidByFormik = !formik.isValid || !formik.values.email;
 
   return (
     <Mutation
       onCompleted={({ saveUserAndSignIn }) => onSuccess(saveUserAndSignIn)}
-      variables={state}
+      variables={formik.values}
       onError={onError}
       mutation={CREATE_NEW_USER}
     >
@@ -37,30 +43,28 @@ const CreateAccount = ({
             <S.Form>
               <S.Input
                 placeholder="Seu nome"
-                onChange={onChangeHandle}
+                onChange={formik.handleChange}
                 type="text"
                 name="name"
-                value={state.name}
+                value={formik.values.name}
               />
               <S.Input
                 placeholder="Seu e-mail"
-                onChange={onChangeHandle}
+                onChange={formik.handleChange}
                 type="text"
                 name="email"
-                value={state.email}
+                value={formik.values.email}
               />
               <S.Input
                 placeholder="Sua senha"
-                onChange={onChangeHandle}
+                onChange={formik.handleChange}
                 type="password"
                 name="password"
-                value={state.password}
+                value={formik.values.password}
               />
               <S.ButtonsWrapper>
                 <S.Button
-                  disabled={
-                    loading || !state.email || !state.name || !state.password
-                  }
+                  disabled={loading || isValidByFormik}
                   onClick={createUser}
                 >
                   Criar conta
@@ -81,10 +85,10 @@ const CreateAccount = ({
   );
 };
 
-CreateAccount.propTypes = {
-  onError: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
-  toggleComponetView: PropTypes.func.isRequired,
-};
+// CreateAccount.propTypes = {
+//   onError: PropTypes.func.isRequired,
+//   onSuccess: PropTypes.func.isRequired,
+//   toggleComponetView: PropTypes.func.isRequired,
+// };
 
 export default CreateAccount;
