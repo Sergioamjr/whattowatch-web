@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import Template from "components/Template";
 import useAppStore from "hooks/useAppStore";
-import { Movie, OptionalMovie } from "types/common";
+import { Movie } from "types/common";
 import { fetchSingleMovie } from "services/movies";
 import * as S from "./style";
 import { BASE_IMG } from "components/MovieCard";
@@ -19,7 +19,7 @@ const SingleMovie = (props: RouteComponentProps): JSX.Element => {
   const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const { _id: userID } = useQueryUser();
   const { setCachedMovie, cachedMovie, isLogged } = useAppStore();
-  const [movie, setMovie] = useState<Movie | OptionalMovie>(cachedMovie);
+  const [movie, setMovie] = useState<Partial<Movie>>(cachedMovie);
 
   const getMovieDetails = useCallback(async () => {
     try {

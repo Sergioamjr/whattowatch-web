@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState } from "react";
 import useQueryUser from "./useQueryUser";
 import {
   Movie,
-  OptionalMovie,
   ReactChildren,
   AppStoreTypes,
   MoviePageState,
@@ -26,7 +25,7 @@ export const AppStore = createContext<AppStoreTypes>(defaultAppStore);
 
 export const StoreProvider = ({ children }: ReactChildren): JSX.Element => {
   const { token } = useQueryUser();
-  const [cachedMovie, setCachedMovie] = useState<Movie | OptionalMovie>(
+  const [cachedMovie, setCachedMovie] = useState<Partial<Movie>>(
     defaultAppStore.cachedMovie
   );
   const [movies, setMovies] = useState<MoviePageState>(defaultAppStore.movies);
