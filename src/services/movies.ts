@@ -48,7 +48,7 @@ export const fetchGenres = (): GenresType[] => {
   return formatGenresResponse(GenresMock);
 };
 
-const normalizeSingleMovie = ({ data }) => {
+export const normalizeSingleMovie = ({ data }) => {
   return {
     title: data.title,
     movieID: data.id,
