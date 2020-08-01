@@ -1,14 +1,11 @@
 import React from "react";
-import { Button } from "@storybook/react/demo";
+import Button from "./";
 
-export default { title: "Button" };
+export default {
+  title: "Button",
+  parameters: {
+    backgrounds: [{ name: "twitter", value: "#0f142b", default: true }],
+  },
+};
 
 export const withText = (): JSX.Element => <Button>Hello Button</Button>;
-
-export const withEmoji = (): JSX.Element => (
-  <Button>
-    <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
-    </span>
-  </Button>
-);

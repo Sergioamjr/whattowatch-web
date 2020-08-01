@@ -1,14 +1,6 @@
 import React from "react";
-import { HashRouter as Router } from "react-router-dom";
-import MovieCard from "./";
+import MovieDetails from ".";
 import { normalizeSingleMovie } from "services/movies";
-
-export default {
-  title: "MovieCard",
-  parameters: {
-    backgrounds: [{ name: "twitter", value: "#0f142b", default: true }],
-  },
-};
 
 const props = normalizeSingleMovie({
   data: {
@@ -47,13 +39,11 @@ const props = normalizeSingleMovie({
   },
 });
 
-export const Component = () => (
-  <Router>
-    <div style={{ width: 170, margin: "10px auto" }}>
-      <MovieCard
-        {...props}
-        selectMovieAndRedirect={() => console.log("redirect")}
-      />
-    </div>
-  </Router>
-);
+export default {
+  title: "MovieDetails",
+  parameters: {
+    backgrounds: [{ name: "twitter", value: "#0f142b", default: true }],
+  },
+};
+
+export const movieDetails = (): JSX.Element => <MovieDetails {...props} />;
