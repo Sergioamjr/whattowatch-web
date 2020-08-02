@@ -30,7 +30,13 @@ const MovieCard = ({ onSelectMovie, ...props }: Props) => {
             onSelectMovie(props);
           }}
         >
-          <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
+          <S.Img
+            onError={() => {
+              console.log("sem imgem", title);
+            }}
+            src={`${BASE_IMG}${posterPath}`}
+            alt=""
+          />
           {!!vote_average && <S.Note>{vote_average}</S.Note>}
         </Link>
       </S.ImgWrapper>
