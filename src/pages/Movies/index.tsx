@@ -53,8 +53,6 @@ const Movies = (): JSX.Element => {
     setSelectedMovie({});
   };
 
-  console.log(selectedMovie);
-
   return (
     <Template>
       <Modal isOpen={!!selectedMovie.title} onCloseModal={onCloseModal}>
