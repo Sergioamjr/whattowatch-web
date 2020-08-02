@@ -20,7 +20,7 @@ const MovieDetails = ({
   return (
     <S.Wrapper>
       <S.Head>
-        <img src={`${BASE_IMG}${backdropPath}`} alt="" />
+        {!!backdropPath && <img src={`${BASE_IMG}${backdropPath}`} alt="" />}
         <S.Title>{title}</S.Title>
       </S.Head>
       <S.Content>

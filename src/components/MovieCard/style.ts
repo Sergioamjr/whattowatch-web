@@ -32,6 +32,9 @@ export const Info = styled.p`
   color: #40826d;
   margin-bottom: 5px;
   font-size: 0.8em;
+  white-space: pre;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;
 
 export const Title = styled.p`
@@ -42,4 +45,20 @@ export const Title = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-weight: bold;
+`;
+
+export const Note = styled.span`
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
+  background: #38416b;
+  font-size: 0.8rem;
+  padding: 3px;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 2px 2px 1px #0f142b;
+`;
+
+export const ImgWrapper = styled.div`
+  position: relative;
 `;
