@@ -108,7 +108,7 @@ const Genrer = (props: RouteComponentProps): JSX.Element => {
                       userID={userID}
                       callback={callback}
                       loading={loading}
-                      selectMovieAndRedirect={selectMovieAndRedirect}
+                      onSelectMovie={selectMovieAndRedirect}
                       {...movieProps}
                     />
                   </Row>

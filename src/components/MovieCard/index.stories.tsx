@@ -50,10 +50,7 @@ const props = normalizeSingleMovie({
 export const Component = () => (
   <Router>
     <div style={{ width: 170, margin: "10px auto" }}>
-      <MovieCard
-        {...props}
-        selectMovieAndRedirect={() => console.log("redirect")}
-      />
+      <MovieCard {...props} onSelectMovie={() => console.log("redirect")} />
     </div>
   </Router>
 );

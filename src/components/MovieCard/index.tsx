@@ -12,42 +12,34 @@ interface Props extends Movie {
   callback?: FixMeLater;
   userID?: string;
   isInFavorites?: boolean;
-  selectMovieAndRedirect: (movie: Movie) => void;
+  onSelectMovie: (movie: Movie) => void;
 }
 
-const MovieCard = ({
-  title,
-  movieID,
-  posterPath,
-  selectMovieAndRedirect,
-  ...props
-}: Props) => {
+const MovieCard = ({ onSelectMovie, ...props }: Props) => {
+  const { title, posterPath } = props;
   return (
     <S.Card>
       <Link
-        to={`/filmes/${movieID}`}
-        onClick={() =>
-          selectMovieAndRedirect({ title, movieID, posterPath, ...props })
-        }
+        to="/#"
+        onClick={(event: FixMeLater) => {
+          event.preventDefault();
+          onSelectMovie(props);
+        }}
       >
         <S.Img src={`${BASE_IMG}${posterPath}`} alt="" />
       </Link>
       <S.Info>2019 / Drama</S.Info>
       <S.CustomLink
-        to={`/filmes/${movieID}`}
-        onClick={() =>
-          selectMovieAndRedirect({ title, movieID, posterPath, ...props })
-        }
+        to="/#"
+        onClick={(event: FixMeLater) => {
+          event.preventDefault();
+          onSelectMovie(props);
+        }}
       >
         <S.Title>{title}</S.Title>
       </S.CustomLink>
     </S.Card>
   );
-};
-
-MovieCard.defaultProps = {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  selectMovieAndRedirect: () => {},
 };
 
 export default memo(MovieCard);

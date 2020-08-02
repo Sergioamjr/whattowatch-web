@@ -1,27 +1,20 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { fetchMovies } from "services/movies";
-import { RouteComponentProps } from "react-router-dom";
-import { Mutation } from "react-apollo";
 import MovieCard from "components/MovieCard";
-import { ADD_MOVIE_TO_FAVORITE, DELETE_FAVORITE } from "fragments";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
 import { Movie } from "types/common";
 import { GridWithScroll, Row } from "styles";
 import useAppStore from "hooks/useAppStore";
-import useQueryUser from "hooks/useQueryUser";
 import useIsVisible from "hooks/useIsVisible";
-import useQueryUserFavorites from "hooks/useQueryUserFavorites";
 import * as S from "./style";
 import Genres from "components/Genres";
 
-const Movies = ({ history }: RouteComponentProps): JSX.Element => {
+const Movies = (): JSX.Element => {
   const { movies, setMovies } = useAppStore();
+  const [selectedMovie, setSelectedMovie] = useState<Partial<Movie>>({});
   const lastRef = useRef<HTMLElement | null>(null);
-  const { setCachedMovie } = useAppStore();
-  const { _id: userID } = useQueryUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { getFavoritesByUserID = [], refetch } = useQueryUserFavorites();
   const isVisible = useIsVisible(lastRef.current);
 
   const getMoreMovies = useCallback(
@@ -54,14 +47,7 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
     }
   }, [isVisible, getMoreMovies, movies.page]);
 
-  const onErrorHandler = (error) => {
-    console.log("error", error);
-  };
-
-  const selectMovieAndRedirect = (movie: Movie): void => {
-    setCachedMovie(movie);
-    history.push(`/filmes/${movie.movieID}`);
-  };
+  console.log(selectedMovie);
 
   return (
     <Template>
@@ -71,38 +57,17 @@ const Movies = ({ history }: RouteComponentProps): JSX.Element => {
       <Genres actived={0} />
       <GridWithScroll>
         {movies.results.map((movieProps, index) => {
-          const isInFavorites = getFavoritesByUserID.find(
-            ({ movieID }) => movieID === movieProps.movieID
-          );
           return (
-            <Mutation
+            <Row
               key={index}
-              onError={onErrorHandler}
-              onCompleted={refetch}
-              mutation={isInFavorites ? DELETE_FAVORITE : ADD_MOVIE_TO_FAVORITE}
+              ref={index === movies.results.length - 1 ? lastRef : null}
+              xs={6}
+              sm={4}
+              md={3}
+              xl={2}
             >
-              {(callback, { loading }) => {
-                return (
-                  <Row
-                    ref={index === movies.results.length - 1 ? lastRef : null}
-                    xs={6}
-                    sm={4}
-                    md={3}
-                    xl={2}
-                  >
-                    <MovieCard
-                      _id={isInFavorites?.movieID}
-                      isInFavorites={!!isInFavorites}
-                      userID={userID}
-                      callback={callback}
-                      loading={loading}
-                      selectMovieAndRedirect={selectMovieAndRedirect}
-                      {...movieProps}
-                    />
-                  </Row>
-                );
-              }}
-            </Mutation>
+              <MovieCard {...movieProps} onSelectMovie={setSelectedMovie} />
+            </Row>
           );
         })}
         {isLoading && <S.Loading>CARREGANDO...</S.Loading>}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { fetchGenres } from "services/movies";
 import * as S from "./style";
 import { GenresType } from "types/common";
@@ -9,19 +9,7 @@ type GenresProps = {
 };
 
 const Genres = ({ actived }: GenresProps): JSX.Element => {
-  const [genreList, setGenreList] = useState<GenresType[]>([]);
-  useEffect(() => {
-    getGenres();
-  }, []);
-
-  const getGenres = async () => {
-    try {
-      const genres = await fetchGenres();
-      setGenreList(genres);
-    } catch (err) {
-      setGenreList([]);
-    }
-  };
+  const [genreList] = useState<GenresType[]>(fetchGenres());
 
   return (
     <S.List>
