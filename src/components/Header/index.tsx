@@ -13,14 +13,14 @@ const Header = ({ history }: RouteComponentProps) => {
     clearLocalStorage();
     client.writeData({ data: {} });
     setIsLogged(false);
-    history.push("/filmes");
+    history.push("/");
   };
 
   return (
     <S.Header>
       <S.Logo>WhatToWatch</S.Logo>
       <nav>
-        <S.MenuLink to="/filmes">Filmes</S.MenuLink>
+        <S.MenuLink to="/">Filmes</S.MenuLink>
         {isLogged ? (
           <>
             <S.MenuLink to="/favoritos">Favoritos</S.MenuLink>

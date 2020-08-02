@@ -3,9 +3,8 @@ import { fetchMovies } from "services/movies";
 import MovieCard from "components/MovieCard";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Movie } from "types/common";
+import { Movie, MoviePageState } from "types/common";
 import { GridWithScroll, Row } from "styles";
-import useAppStore from "hooks/useAppStore";
 import useIsVisible from "hooks/useIsVisible";
 import * as S from "./style";
 import Genres from "components/Genres";
@@ -13,7 +12,11 @@ import Modal from "components/Modal";
 import MovieDetails from "components/MovieDetails";
 
 const Movies = (): JSX.Element => {
-  const { movies, setMovies } = useAppStore();
+  const [movies, setMovies] = useState<MoviePageState>({
+    results: [],
+    page: 0,
+    total_pages: 1000,
+  });
   const [selectedMovie, setSelectedMovie] = useState<Partial<Movie>>({});
   const lastRef = useRef<HTMLElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);

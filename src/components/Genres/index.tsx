@@ -14,7 +14,7 @@ const Genres = ({ actived }: GenresProps): JSX.Element => {
   return (
     <S.List>
       <S.ListItem>
-        <S.ListItemBtn $actived={actived === 0 || !actived} to="/filmes">
+        <S.ListItemBtn $actived={actived === 0 || !actived} to="/">
           Todos
         </S.ListItemBtn>
       </S.ListItem>

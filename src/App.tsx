@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "pages/Login";
-import Home from "pages/Home";
 import Movies from "pages/Movies";
 import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
@@ -17,7 +16,7 @@ const App = (): JSX.Element => {
   return (
     <Router>
       <Switch>
-        <Route exact render={(props) => <Home {...props} />} path="/" />
+        <Route exact render={(props) => <Movies {...props} />} path="/" />
         <Route exact render={(props) => <Login {...props} />} path="/login" />
         <Route
           exact
@@ -42,8 +41,6 @@ const App = (): JSX.Element => {
           render={(props) => <Genres {...props} />}
           path="/genero/:slug"
         />
-
-        <Route exact render={(props) => <Movies {...props} />} path="/filmes" />
 
         <Redirect from="*" to="/" />
       </Switch>
