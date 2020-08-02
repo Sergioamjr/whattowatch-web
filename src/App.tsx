@@ -11,7 +11,6 @@ import Movies from "pages/Movies";
 import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
 import Authentication from "components/Authentication";
-import SingleMovie from "pages/SingleMovie";
 import Genres from "pages/Genrer";
 
 const App = (): JSX.Element => {
@@ -45,11 +44,7 @@ const App = (): JSX.Element => {
         />
 
         <Route exact render={(props) => <Movies {...props} />} path="/filmes" />
-        <Route
-          exact
-          render={(props) => <SingleMovie {...props} />}
-          path="/filmes/:id"
-        />
+
         <Redirect from="*" to="/" />
       </Switch>
     </Router>
