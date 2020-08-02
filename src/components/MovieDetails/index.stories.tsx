@@ -2,7 +2,7 @@ import React from "react";
 import MovieDetails from ".";
 import { normalizeSingleMovie } from "services/movies";
 
-const props = normalizeSingleMovie({
+export const props = normalizeSingleMovie({
   data: {
     adult: false,
     backdrop_path: "/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",

@@ -3,7 +3,6 @@ import { Movie } from "types/common";
 import * as S from "./style";
 import Badge from "components/Badge";
 import { BASE_IMG } from "components/MovieCard";
-import { Close } from "icons";
 import { Grid, Row } from "styles";
 import { getGenreLabel } from "utils";
 
@@ -21,9 +20,6 @@ const MovieDetails = ({
   return (
     <S.Wrapper>
       <S.Head>
-        <S.CloseBtn>
-          <Close />
-        </S.CloseBtn>
         <img src={`${BASE_IMG}${backdropPath}`} alt="" />
         <S.Title>{title}</S.Title>
       </S.Head>

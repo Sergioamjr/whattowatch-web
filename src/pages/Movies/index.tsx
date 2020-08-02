@@ -9,6 +9,8 @@ import useAppStore from "hooks/useAppStore";
 import useIsVisible from "hooks/useIsVisible";
 import * as S from "./style";
 import Genres from "components/Genres";
+import Modal from "components/Modal";
+import MovieDetails from "components/MovieDetails";
 
 const Movies = (): JSX.Element => {
   const { movies, setMovies } = useAppStore();
@@ -47,10 +49,17 @@ const Movies = (): JSX.Element => {
     }
   }, [isVisible, getMoreMovies, movies.page]);
 
+  const onCloseModal = () => {
+    setSelectedMovie({});
+  };
+
   console.log(selectedMovie);
 
   return (
     <Template>
+      <Modal isOpen={!!selectedMovie.title} onCloseModal={onCloseModal}>
+        <MovieDetails {...selectedMovie} />
+      </Modal>
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Button from "components/Button";
 
 export const Text = styled.p`
   color: #333;
@@ -42,16 +41,4 @@ export const Subtitle = styled.p`
   color: #949494;
   font-size: 0.8rem;
   margin-bottom: 5px;
-`;
-
-export const CloseBtn = styled(Button)`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  border-radius: 50%;
-  border: 0;
-  width: 30px;
-  height: 30px;
-  background: #f44336;
-  font-size: 0;
 `;
