@@ -1,6 +1,6 @@
 import React from "react";
 import MovieDetails from ".";
-import { normalizeSingleMovie } from "services/movies";
+import { normalizeSingleMovie } from "services/formaters";
 
 export const props = normalizeSingleMovie({
   data: {

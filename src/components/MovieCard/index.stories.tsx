@@ -1,7 +1,7 @@
 import React from "react";
 import { HashRouter as Router } from "react-router-dom";
 import MovieCard from "./";
-import { normalizeSingleMovie } from "services/movies";
+import { normalizeSingleMovie } from "services/formaters";
 
 export default {
   title: "MovieCard",

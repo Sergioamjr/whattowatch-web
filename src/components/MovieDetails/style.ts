@@ -16,8 +16,15 @@ export const Content = styled.div`
   padding: 15px;
 `;
 
-export const Head = styled.div`
+export const Head = styled.div<{ withoutImg: boolean }>`
   position: relative;
+  ${({ withoutImg }) =>
+    !withoutImg &&
+    `min-height: 200px;
+    max-height: 260px;
+    overflow: hidden;
+    background: #333333c2;
+  `}
 `;
 
 export const Title = styled.h2`

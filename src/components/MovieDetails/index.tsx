@@ -10,6 +10,7 @@ type Props = Partial<Movie>;
 
 const MovieDetails = ({
   backdropPath,
+  posterPath,
   title,
   overview,
   popularity,
@@ -17,10 +18,19 @@ const MovieDetails = ({
   vote_average,
   genre_ids,
 }: Props): JSX.Element => {
+  const thumbnailImage = backdropPath || posterPath;
   return (
     <S.Wrapper>
-      <S.Head>
-        {!!backdropPath && <img src={`${BASE_IMG}${backdropPath}`} alt="" />}
+      <S.Head withoutImg={!!backdropPath}>
+        {!!thumbnailImage && (
+          <img
+            onError={() => {
+              console.log("theresno image", title);
+            }}
+            src={`${BASE_IMG}${thumbnailImage}`}
+            alt=""
+          />
+        )}
         <S.Title>{title}</S.Title>
       </S.Head>
       <S.Content>
