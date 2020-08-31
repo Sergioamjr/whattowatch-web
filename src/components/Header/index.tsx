@@ -30,7 +30,10 @@ const Header = ({ history }: RouteComponentProps) => {
             </S.MenuLink>
           </>
         ) : (
-          <S.MenuLink to="/login">Login</S.MenuLink>
+          <>
+            <S.MenuLink to="/busca">Busca</S.MenuLink>
+            <S.MenuLink to="/login">Login</S.MenuLink>
+          </>
         )}
       </nav>
     </S.Header>

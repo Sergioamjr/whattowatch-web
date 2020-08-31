@@ -7,7 +7,7 @@ import { ReactChildren } from "types/common";
 const cache = new InMemoryCache();
 const client = new ApolloClient({
   cache,
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_GRAPHQL_API,
 });
 
 cache.writeData({
