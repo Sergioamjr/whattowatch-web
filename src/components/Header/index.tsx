@@ -24,6 +24,7 @@ const Header = ({ history }: RouteComponentProps) => {
         {isLogged ? (
           <>
             <S.MenuLink to="/favoritos">Favoritos</S.MenuLink>
+            <S.MenuLink to="/busca">Busca</S.MenuLink>
             <S.MenuLink onClick={onLoggoutHandler} to="/login">
               Sair
             </S.MenuLink>

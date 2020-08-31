@@ -8,14 +8,14 @@ type MoviesResponse = {
 
 export const formatMoviesResponse = ({ data }: FixMeLater): MoviesResponse => {
   return {
-    results: data.results.map(
-      ({ id, poster_path, backdrop_path, ...movie }) => ({
+    results: data.results
+      .map(({ id, poster_path, backdrop_path, ...movie }) => ({
         ...movie,
         movieID: id,
         posterPath: poster_path,
         backdropPath: backdrop_path,
-      })
-    ),
+      }))
+      .filter(({ backdropPath, posterPath }) => backdropPath && posterPath),
     page: data.page,
     total_pages: data.total_pages,
   };
