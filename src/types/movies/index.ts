@@ -17,6 +17,6 @@ export interface Movie {
 
 export type MoviePageState = {
   results: Movie[];
-  page: number;
-  total_pages: number;
+  page?: number;
+  total_pages?: number;
 };

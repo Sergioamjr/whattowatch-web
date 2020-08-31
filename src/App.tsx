@@ -11,6 +11,7 @@ import Favorites from "pages/Favorites";
 import Lists from "pages/Lists";
 import Authentication from "components/Authentication";
 import Genres from "pages/Genrer";
+import Search from "pages/Search";
 
 const App = (): JSX.Element => {
   return (
@@ -41,6 +42,8 @@ const App = (): JSX.Element => {
           render={(props) => <Genres {...props} />}
           path="/genero/:slug"
         />
+
+        <Route exact render={(props) => <Search {...props} />} path="/busca" />
 
         <Redirect from="*" to="/" />
       </Switch>
