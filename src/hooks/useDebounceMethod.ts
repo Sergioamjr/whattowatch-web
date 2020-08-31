@@ -12,16 +12,17 @@ type returnedType = [Query, (e: React.ChangeEvent<HTMLInputElement>) => void];
 type params = (s: string) => void;
 
 const delayToFetch = 1000;
+const defaultQuery = {
+  isQuerying: false,
+  results: [],
+  search: "",
+  hasFinished: false,
+  hasError: false,
+};
 
 export const useFetchWPAPI = (fn: params): returnedType => {
   const fetchRef = useRef<number>(null);
-  const [query, setQuery] = useState<Query>({
-    isQuerying: false,
-    results: [],
-    search: "",
-    hasFinished: false,
-    hasError: false,
-  });
+  const [query, setQuery] = useState<Query>(defaultQuery);
 
   const updateState = (obj = {}) => {
     setQuery((v) => ({
@@ -42,6 +43,8 @@ export const useFetchWPAPI = (fn: params): returnedType => {
     clearTimeout(fetchRef.current);
     if (query.search) {
       fetchRef.current = window.setTimeout(fetchAPI, delayToFetch);
+    } else {
+      setQuery(defaultQuery);
     }
   }, [query.search]);
 

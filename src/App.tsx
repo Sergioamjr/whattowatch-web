@@ -42,7 +42,8 @@ const App = (): JSX.Element => {
           render={(props) => <Genres {...props} />}
           path="/genero/:slug"
         />
-        <Route exact render={Search} path="/busca" />
+
+        <Route exact render={(props) => <Search {...props} />} path="/busca" />
 
         <Redirect from="*" to="/" />
       </Switch>

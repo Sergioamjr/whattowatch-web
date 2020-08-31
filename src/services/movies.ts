@@ -49,3 +49,15 @@ export const fetchMoviesByGenrer = (
     })
     .then(formatMoviesResponse);
 };
+
+export const searchMovieByTitle = async (
+  query: string
+): Promise<FixMeLater> => {
+  const res = await client.get("/3/search/movie", {
+    params: {
+      query,
+      api_key,
+    },
+  });
+  return formatMoviesResponse(res).results;
+};
