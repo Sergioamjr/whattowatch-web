@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { fetchMovies } from "services/movies";
 import Template from "components/Template";
 import PageTitle from "components/PageTitle";
-import { Movie, MoviePageState } from "types/common";
+import { MoviePageState } from "types/common";
 import useIsVisible from "hooks/useIsVisible";
 import Genres from "components/Genres";
 import ListWithModal from "components/ListWithModal";
@@ -13,7 +13,7 @@ const Movies = (): JSX.Element => {
     page: 0,
     total_pages: 1000,
   });
-  const [selectedMovie, setSelectedMovie] = useState<Partial<Movie>>({});
+
   const lastRef = useRef<HTMLElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const isVisible = useIsVisible(lastRef.current);
@@ -48,25 +48,13 @@ const Movies = (): JSX.Element => {
     }
   }, [isVisible, getMoreMovies, movies.page]);
 
-  const onCloseModal = () => {
-    setSelectedMovie({});
-  };
-
   return (
     <Template>
       <PageTitle top={90} left={-190}>
         Filmes
       </PageTitle>
       <Genres actived={0} />
-      <ListWithModal
-        ref={lastRef}
-        setSelectedMovie={setSelectedMovie}
-        movies={movies}
-        selectedMovie={selectedMovie}
-        onCloseModal={onCloseModal}
-        isLoading={isLoading}
-        isOpen={!!selectedMovie.title}
-      />
+      <ListWithModal ref={lastRef} movies={movies} isLoading={isLoading} />
     </Template>
   );
 };

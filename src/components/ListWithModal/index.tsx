@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { Row, GridWithScroll } from "styles";
 import Modal from "components/Modal";
 import MovieDetails from "components/MovieDetails";
@@ -6,28 +6,16 @@ import MovieCard from "components/MovieCard";
 import { Movie, MoviePageState } from "types/common";
 
 type Props = {
-  isOpen: boolean;
-  onCloseModal: () => void;
-  selectedMovie: Partial<Movie>;
   movies: MoviePageState;
-  setSelectedMovie: (e: Movie) => void;
   isLoading: boolean;
 };
 
-const ListWithModal = (
-  {
-    isOpen,
-    onCloseModal,
-    selectedMovie,
-    movies,
-    setSelectedMovie,
-    isLoading,
-  }: Props,
-  ref
-): JSX.Element => {
+const ListWithModal = ({ movies, isLoading }: Props, ref): JSX.Element => {
+  const [selectedMovie, setSelectedMovie] = useState<Partial<Movie>>({});
+  const onCloseModal = () => setSelectedMovie({});
   return (
     <>
-      <Modal isOpen={isOpen} onCloseModal={onCloseModal}>
+      <Modal isOpen={!!selectedMovie.title} onCloseModal={onCloseModal}>
         <MovieDetails {...selectedMovie} />
       </Modal>
       <GridWithScroll>

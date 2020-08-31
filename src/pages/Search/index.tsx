@@ -3,9 +3,8 @@ import Template from "components/Template";
 import PageTitle from "components/PageTitle";
 import * as S from "./style";
 import { searchMovieByTitle } from "services/movies";
-import MovieCard from "components/MovieCard";
-import { GridWithScroll, Row } from "styles";
 import { useDebounce } from "hooks/useDebounce";
+import ListWithModal from "components/ListWithModal";
 
 const Search = (): JSX.Element => {
   const [search, setSearch] = useState("");
@@ -48,16 +47,8 @@ const Search = (): JSX.Element => {
         <S.Text>Busca</S.Text>
         <S.Input onChange={onChangeSearch} type="text" value={search} />
       </S.Form>
-      {query.isFetching && search && <S.Text>Carregando...</S.Text>}
-      {!!query.results.length && search && (
-        <GridWithScroll>
-          {query.results.map((movieProps, index) => (
-            <Row key={index} xs={6} sm={4} md={3} xl={2}>
-              <MovieCard {...movieProps} />
-            </Row>
-          ))}
-        </GridWithScroll>
-      )}
+
+      <ListWithModal isLoading={query.isFetching && !!search} movies={query} />
     </Template>
   );
 };
