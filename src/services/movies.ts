@@ -56,6 +56,7 @@ export const searchMovieByTitle = async (
   const res = await client.get("/3/search/movie", {
     params: {
       query,
+
       api_key,
     },
   });
